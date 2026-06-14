@@ -40,8 +40,9 @@ If you want the short version, read the Executive Summary (§1) and copy the tem
 18. [Failure-Mode Catalog](#18-failure-mode-catalog)
 19. [Does Any of This Actually Help?](#19-does-any-of-this-actually-help)
 20. [Implementation: Build Order](#20-implementation-build-order)
-21. [Open Questions and Caveats](#21-open-questions-and-caveats)
-22. [Sources](#22-sources)
+21. [Data, Large Files, and Repo Size](#21-data-large-files-and-repo-size)
+22. [Open Questions and Caveats](#22-open-questions-and-caveats)
+23. [Sources](#23-sources)
 
 ---
 
@@ -693,7 +694,48 @@ A pragmatic build order, highest-leverage first **[AGNOSTIC]**:
 
 ---
 
-## 21. Open Questions and Caveats
+## 21. Data, Large Files, and Repo Size
+
+*Field notes from running this in practice — generalized, labeled by confidence.*
+
+Agents work on whatever's in the folder, and data folders get heavy fast. Three problems hide under "this file is a problem," and they need **different** fixes — don't conflate them:
+
+| The actual problem | What it needs |
+|---|---|
+| **Too big** — bloats the repo, slows clones | Ship a sample; gitignore the full file; fetch on demand |
+| **Don't publish it** — fine for the agent to read, just not for GitHub | `.gitignore` (the agent still reads it locally) |
+| **Don't even read it** — genuinely sensitive | Keep it *out of the folder entirely*; a subfolder can't reliably hide from the agent **[INFERRED]** |
+
+### Large files: sample in, full data out
+
+The durable pattern for heavy data **[AGNOSTIC / observed in production]**:
+
+1. **Ship a small sample** (a few hundred KB) so the workflow runs the moment someone clones — the agent verifies the pipeline against the sample.
+2. **Gitignore the full files**; they're usually public and regenerable, so there's no reason to carry hundreds of MB in history.
+3. **Document the fetch** — a `DATA.md` pointing at the download/refresh scripts, with a table mapping each gitignored file to the command that retrieves it.
+4. **Override deliberately** when you must commit a big file: `git add -f path` (and `git commit --no-verify` if a size hook trips).
+
+GitHub limits: it **warns at 50 MB and hard-blocks at 100 MB per file** **[OFFICIAL]** ([GitHub: large files](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files)). But for a *lean* repo, set your own threshold lower (25 MB is a sensible default) — a cluster of 30–45 MB files sails under GitHub's warning yet still dominates your history.
+
+### "Ignore large by default" needs two pieces
+
+`.gitignore` matches *paths*, not *sizes* — so "ignore anything big" isn't a single setting **[OFFICIAL]**. It takes two small tools:
+
+- **A sweep** — a script that finds files over a threshold and writes them to a managed block in `.gitignore` (optionally `git rm --cached` to untrack them, keeping them on disk). Run it whenever the data grows.
+- **A guard** — a `pre-commit` hook that blocks any commit containing a file ≥ your limit. This is the real "by default," because it catches new big files automatically rather than relying on you to remember.
+
+For very large binaries you genuinely need versioned, **Git LFS** is the standard alternative — pointers in git, blobs stored separately **[OFFICIAL]** ([Git LFS](https://git-lfs.com/)).
+
+### Operational gotchas (the stuff that wastes an hour)
+
+- **Gitignoring doesn't shrink history.** It stops *future* bloat and drops files from the current tree, but anything already committed stays until a history rewrite (`git filter-repo` / BFG) — which changes commit IDs and is disruptive once others have cloned **[OFFICIAL]** ([git filter-repo](https://github.com/newren/git-filter-repo)).
+- **Hooks aren't shared automatically.** A tracked `.githooks/` directory does nothing until each clone runs `git config core.hooksPath .githooks`. Put that one line in your setup docs, or the guard silently isn't running for teammates **[CONVENTION]**.
+- **Stale `.git/index.lock`.** A GUI git client or an interrupted command can leave a lock that blocks an agent's git writes ("Another git process seems to be running"). When no git is actually running, remove the lock and retry — but check first; don't yank it out from under a live process **[CONVENTION]**.
+- **Case-insensitive filesystems.** macOS treats `data/BLS/` and `data/bls/` as the *same* folder, but git records whichever casing it first saw — a latent break if the repo ever runs on Linux/CI. Pick one casing and keep it **[CONVENTION]**.
+
+---
+
+## 22. Open Questions and Caveats
 
 1. **Claude Cowork specifics are unverified.** Global-instruction file, sub-agents, compaction commands, diff, and git integration are not publicly documented as of June 2026. Confirm directly before relying on them.
 2. **Compaction thresholds drift.** The exact Codex retained-token figures and Gemini's ~0.5 default are practitioner-derived and version-dependent — verify against current `config.toml`/`settings.json` before quoting.
@@ -706,9 +748,9 @@ A pragmatic build order, highest-leverage first **[AGNOSTIC]**:
 
 ---
 
-## 22. Sources
+## 23. Sources
 
-**Vendor / official:** [Anthropic — Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) · [Anthropic — Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) · [Anthropic — Code execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp) · [Anthropic — Advanced tool use](https://www.anthropic.com/engineering/advanced-tool-use) · [Anthropic — Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) · [Claude Code memory](https://code.claude.com/docs/en/memory) · [Claude Code best practices](https://code.claude.com/docs/en/best-practices) · [Claude Code settings](https://code.claude.com/docs/en/settings) · [Claude Code hooks](https://code.claude.com/docs/en/hooks) · [Claude Code skills](https://code.claude.com/docs/en/skills) · [Claude Code permissions](https://code.claude.com/docs/en/permissions) · [Agent Skills overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) · [agents.md standard](https://agents.md/) · [OpenAI Codex — AGENTS.md](https://developers.openai.com/codex/guides/agents-md) · [OpenAI — Compaction](https://developers.openai.com/api/docs/guides/compaction) · [Cursor — Rules](https://cursor.com/docs/rules.md) · [Cursor — Ignore files](https://cursor.com/docs/context/ignore-files) · [Cursor — Agent best practices](https://cursor.com/blog/agent-best-practices) · [Gemini CLI — GEMINI.md](https://geminicli.com/docs/cli/gemini-md/) · [Gemini CLI — Checkpointing](https://geminicli.com/docs/cli/checkpointing/) · [Aider — Repo map](https://aider.chat/docs/repomap.html) · [Aider — Git](https://aider.chat/docs/git.html) · [Aider — FAQ (.aiderignore)](https://aider.chat/docs/faq.html) · [Continue — Codebase context](https://docs.continue.dev/customize/context/codebase) · [Cline — .clineignore](https://docs.cline.bot/customization/clineignore) · [Cline — Memory Bank](https://docs.cline.bot/features/memory-bank) · [GitHub Copilot coding agent](https://docs.github.com/copilot/concepts/agents/coding-agent/about-coding-agent) · [GitHub Copilot CLI — context management](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/context-management) · [MCP — Lifecycle/spec](https://modelcontextprotocol.io/specification/2025-11-25/basic/lifecycle) · [git — gitignore](https://git-scm.com/docs/gitignore) · [clig.dev](https://clig.dev/)
+**Vendor / official:** [Anthropic — Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) · [Anthropic — Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) · [Anthropic — Code execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp) · [Anthropic — Advanced tool use](https://www.anthropic.com/engineering/advanced-tool-use) · [Anthropic — Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) · [Claude Code memory](https://code.claude.com/docs/en/memory) · [Claude Code best practices](https://code.claude.com/docs/en/best-practices) · [Claude Code settings](https://code.claude.com/docs/en/settings) · [Claude Code hooks](https://code.claude.com/docs/en/hooks) · [Claude Code skills](https://code.claude.com/docs/en/skills) · [Claude Code permissions](https://code.claude.com/docs/en/permissions) · [Agent Skills overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) · [agents.md standard](https://agents.md/) · [OpenAI Codex — AGENTS.md](https://developers.openai.com/codex/guides/agents-md) · [OpenAI — Compaction](https://developers.openai.com/api/docs/guides/compaction) · [Cursor — Rules](https://cursor.com/docs/rules.md) · [Cursor — Ignore files](https://cursor.com/docs/context/ignore-files) · [Cursor — Agent best practices](https://cursor.com/blog/agent-best-practices) · [Gemini CLI — GEMINI.md](https://geminicli.com/docs/cli/gemini-md/) · [Gemini CLI — Checkpointing](https://geminicli.com/docs/cli/checkpointing/) · [Aider — Repo map](https://aider.chat/docs/repomap.html) · [Aider — Git](https://aider.chat/docs/git.html) · [Aider — FAQ (.aiderignore)](https://aider.chat/docs/faq.html) · [Continue — Codebase context](https://docs.continue.dev/customize/context/codebase) · [Cline — .clineignore](https://docs.cline.bot/customization/clineignore) · [Cline — Memory Bank](https://docs.cline.bot/features/memory-bank) · [GitHub Copilot coding agent](https://docs.github.com/copilot/concepts/agents/coding-agent/about-coding-agent) · [GitHub Copilot CLI — context management](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/context-management) · [MCP — Lifecycle/spec](https://modelcontextprotocol.io/specification/2025-11-25/basic/lifecycle) · [git — gitignore](https://git-scm.com/docs/gitignore) · [GitHub — about large files](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files) · [Git LFS](https://git-lfs.com/) · [git filter-repo](https://github.com/newren/git-filter-repo) · [clig.dev](https://clig.dev/)
 
 **Research / empirical:** [Chroma — Context Rot](https://www.trychroma.com/research/context-rot) · [Microsoft Research — Don't let AI agents YOLO your files](https://www.microsoft.com/en-us/research/publication/dont-let-ai-agents-yolo-your-files-shifting-information-and-control-to-filesystems-for-agent-safety-and-autonomy/) · [Evaluating AGENTS.md (arXiv:2602.11988)](https://arxiv.org/abs/2602.11988) · [Instruction-file factorial study (arXiv:2605.10039)](https://arxiv.org/abs/2605.10039) · [Agent READMEs (arXiv:2511.12884)](https://arxiv.org/abs/2511.12884) · [MCP threat modeling (arXiv:2603.22489)](https://arxiv.org/abs/2603.22489) · [NSA — MCP Security CSI](https://www.nsa.gov/Portals/75/documents/Cybersecurity/CSI_MCP_SECURITY.pdf) · [CSA — Agentic MCP Security Best Practices](https://labs.cloudsecurityalliance.org/agentic/agentic-mcp-security-best-practices-v1/)
 
