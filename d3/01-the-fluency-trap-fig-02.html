@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Anthropic RCT: comprehension by how the tool was used</title>
+  <title>The Anthropic RCT: the variable is checking, not typing</title>
   <style>
     :root {
       --color-white:     #FFFFFF;
@@ -80,11 +80,11 @@
       const svg = d3.select('#chart').append('svg')
         .attr('width', totalWidth).attr('height', totalHeight)
         .attr('role', 'img').attr('aria-labelledby', 'chart-title chart-desc');
-      svg.append('title').attr('id', 'chart-title').text('The Anthropic RCT: comprehension by how the tool was used');
-      svg.append('desc').attr('id', 'chart-desc').text('Three bars showing comprehension-quiz averages: hand-coding and AI-plus-interrogation sit near 65 percent while AI-plus-delegation drops below 40 percent.');
+      svg.append('title').attr('id', 'chart-title').text('The Anthropic RCT: the variable is checking, not typing');
+      svg.append('desc').attr('id', 'chart-desc').text('Three bars showing comprehension-quiz averages: hand-coding and AI-plus-interrogation sit near 65 percent while AI-plus-delegation drops below 40 percent. The two high bars share a behavior — the human kept checking — not a typing method.');
 
-      svg.append('text').attr('class', 'chart-title').attr('x', margin.left).attr('y', 24).text('Comprehension by how the tool was used');
-      svg.append('text').attr('class', 'chart-subtitle').attr('x', margin.left).attr('y', 41).text('14-question quiz, n = 52 junior engineers (Anthropic RCT, Jan 2026)');
+      svg.append('text').attr('class', 'chart-title').attr('x', margin.left).attr('y', 24).text('What predicts comprehension: checking, not typing');
+      svg.append('text').attr('class', 'chart-subtitle').attr('x', margin.left).attr('y', 41).text('Comprehension quiz, n = 52 junior engineers (Anthropic RCT, Feb 2026)');
 
       const gChart = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 

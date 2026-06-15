@@ -48,10 +48,14 @@ Then — and this is the move that makes it an experiment about judgment rather 
 
 The hand-coding group averaged 67 percent. The AI-assisted group averaged 50 percent. Seventeen points — close to two letter grades — opened up between two sets of people who had just spent the same amount of time on the same problem.[^anthropic] The only thing that differed was whether a machine did the executing.
 
-And here is the detail that turns a finding into a warning. Inside the AI group, behavior split the outcome cleanly. The engineers who used the model to *interrogate* — asking it conceptual questions, challenging its answers, forcing themselves to understand what it produced — scored 65 percent or higher. The engineers who used it to *delegate* — describe the problem, accept the output, move on — scored below 40.[^anthropic] Same tool. Same task. Opposite result. The variable was not the AI. It was whether the human kept doing the judgment work while the machine did the typing.
+Read that result carefully, because the obvious lesson is the wrong one. The hand-coders did not win because typing code by hand is some lost virtue. Typing is not the skill, and the machine is a superb typist — faster and more accurate at producing syntax than any human will ever be. The hand-coders won because writing the code themselves forced them to understand it: to hold the problem in their heads, to test what they wrote, to debug it when it broke. The hand was incidental. The understanding was the point. Take a group that gets that same understanding some other way — and the gap closes.
 
-![Three vertical bars. Hand-coding and AI-plus-interrogation sit at nearly the same height; AI-plus-delegation drops off sharply, with a faint reference line linking the two high bars.](../images/01-the-fluency-trap-fig-02.png)
-*Figure 1.2 — The Anthropic RCT: comprehension by how the tool was used*
+And here is the detail that turns a finding into a warning. Inside the AI group, behavior split the outcome cleanly. The engineers who used the model to *interrogate* — asking it conceptual questions, challenging its answers, forcing themselves to understand what it produced — scored in the 65-to-86 percent range. The engineers who used it to *delegate* — describe the problem, accept the output, move on — scored in the 24-to-39 percent range.[^anthropic] Same tool. Same task. Opposite result. The variable was not the AI, and it was not who typed. It was whether the human kept checking — reading, questioning, testing — while the machine produced.
+
+That second mode has a name now, and it is worth saying plainly: *vibe-coding*. Prompt, glance, accept, move on. It feels like productivity because the artifact appears and it runs. It is the precise behavior that scored below 40. The discipline this book teaches is its opposite — not "do it by hand," but *check the work*: read what came back, test it, try to break it, validate it against something real, and refuse to ship what you cannot defend. Let the machine type. Keep the checking for yourself.
+
+![Three vertical bars showing comprehension-quiz scores. Hand-coding and AI-plus-interrogation sit at nearly the same height, joined by a faint reference line; AI-plus-delegation drops off sharply. The two high bars share not a typing method but a behavior: the human kept checking.](../images/01-the-fluency-trap-fig-02.png)
+*Figure 1.2 — The Anthropic RCT: the variable is checking, not typing. Interrogating the model matches writing it yourself; delegating to it — vibe-coding — collapses.*
 
 <!-- → [INFOGRAPHIC: three-column comparison — "Hand-coding" (67% comprehension quiz average), "AI + interrogation" (≥65%), "AI + delegation" (<40%); visual treatment should emphasize that the middle and left columns converge while the right column falls off sharply; caption: "The tool is identical in the middle and right columns. The variable is what the human does while it runs."] -->
 
@@ -111,7 +115,7 @@ So the discipline this entire book is built on starts with a single reflex, and 
 
 That reflex is judgment. It is the part that does not get cheaper. On a ninety-day clock, with the bottom rung disappearing and the boost flowing to whoever already has the eye, it is also the only thing that reliably separates you from the flood of fluent, identical, unexamined output arriving in every inbox you are trying to reach.
 
-The machine will do the typing. The judgment is yours, and it always was. The rest of this book is about how to build it on purpose — fast enough to beat the clock.
+The machine will do the typing — and it is better at it than you are. The checking is yours, and it always was: the judgment about whether the fluent thing on the screen is actually right. The rest of this book is about how to build that judgment on purpose — fast enough to beat the clock.
 
 ---
 
@@ -314,7 +318,7 @@ After completing this validation, write a two-sentence AI Use Disclosure:
 
 [^grading]: Grading split (≈75–80% procedural / 20–25% judgment) drawn from "The Job Apocalypse (Not Yet): Thinking Has Become the Job" (uploaded essay, N. Bear Brown). **[verify]** — locate the primary syllabus/rubric data this figure summarizes before publication; currently sourced to the author's own essay, not an external study.
 
-[^anthropic]: Anthropic, "How AI assistance impacts the formation of coding skills," randomized controlled trial published Jan 29 2026: 52 junior engineers learning the Trio Python library; AI-assisted group averaged 50% on a 14-question comprehension quiz vs 67% for hand-coders (~17 points). Within the AI group, conceptual-interrogation users scored ≥65% while code-delegators scored <40%. https://www.anthropic.com/research/AI-assistance-coding-skills (see also InfoQ summary, Feb 2026: https://www.infoq.com/news/2026/02/ai-coding-skill-formation/). Note: these are the study's reported figures; an earlier draft essay paraphrased the split as "24–39% vs 65–86%" — use the primary numbers above.
+[^anthropic]: Judy Hanwen Shen & Alex Tamkin, "How AI Impacts Skill Formation," Anthropic, Feb 3 2026 (arXiv:2601.20245, https://arxiv.org/abs/2601.20245); plain-language summary at https://www.anthropic.com/research/AI-assistance-coding-skills. A randomized controlled trial of 52 (mostly junior) engineers learning the Trio asynchronous Python library: the AI-assisted group averaged 50% on the comprehension quiz versus 67% for the hand-coding group (~17 points, ≈ two letter grades), with the largest gap on the debugging questions. The study reports substantial heterogeneity *within* the AI group: high-engagement usage (asking conceptual questions, requesting explanations alongside generated code) scored 65–86%, while delegation usage (generate code, accept, move on) scored 24–39%. The mechanism is cognitive engagement, not manual typing — Anthropic's own recommendation is to use AI in ways that keep the engineer "cognitively engaged," preserving debugging and validation skill. Hand-coding and interrogation both force understanding; delegation does not.
 
 [^drag]: "AI boost" / "AI drag" framing attributed to Mark Russinovich and Scott Hanselman, via "The Ladder That Isn't There" (uploaded essay, N. Bear Brown). **[verify]** — trace to the original Russinovich/Hanselman source before publication.
 
@@ -332,9 +336,9 @@ After completing this validation, write a two-sentence AI Use Disclosure:
 **Files:** ../images/01-the-fluency-trap-fig-01.svg · ../d3/01-the-fluency-trap-fig-01.html
 **Prompt:** Two aligned stacked bars on white, the same value split recut by a second question. Render procedural competence as a tall neutral-gray base and judgment as a small cap in the one red accent; align the segment boundary across both bars with a dashed ink rule, zero baseline anchored.
 
-### Figure 1.2 — The Anthropic RCT: comprehension by how the tool was used
+### Figure 1.2 — The Anthropic RCT: the variable is checking, not typing
 **Files:** ../images/01-the-fluency-trap-fig-02.svg · ../d3/01-the-fluency-trap-fig-02.html
-**Prompt:** Three vertical bars on white at zero baseline — hand-coding and AI-plus-interrogation near-level, AI-plus-delegation dropping off a cliff. Keep the high bars in neutral ink-gray and let the convergence read through a faint ochre reference line; reserve red for nothing but the chapter's brand mark.
+**Prompt:** Three vertical bars on white at zero baseline — hand-coding and AI-plus-interrogation near-level, AI-plus-delegation dropping off a cliff. Title the chart so the lesson is unmistakable: what the two high bars share is checking, not a typing method. Keep the high bars in neutral ink-gray, let the convergence read through a faint dashed reference line, and reserve red for the one engaged-AI bar; subtitle names delegation as vibe-coding.
 
 ### Figure 1.3 — AI as material risk: S&P 500 disclosures, 2023–2025
 **Files:** ../images/01-the-fluency-trap-fig-03.svg · ../d3/01-the-fluency-trap-fig-03.html
