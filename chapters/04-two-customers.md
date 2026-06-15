@@ -20,6 +20,9 @@ The problem is that these two needs are in tension. The imperative recipe is str
 
 So you write it twice.
 
+![Two boxes side by side — an AI-artifact box of terse, imperative attributes and a human-artifact box of fuller comprehension attributes — both resting on a single wide foundation bar labeled the verified-data contract, with arrows rising from the foundation into each box.](images/04-two-customers-fig-01.png)
+*Figure 4.1 — Two customers, one contract*
+
 <!-- → [DIAGRAM: Two boxes side by side, labeled "AI Artifact (recipe)" and "Human Artifact (card)". AI box lists: terse, imperative, read-first order, commands verbatim, stop conditions. Human box lists: purpose statement, dependencies, how-to-run, what-it-produces, failure modes. Both boxes share a footer labeled "Verified-Data Contract (_shared.md)" with arrows pointing into both. Caption: "Same recipe, two documents. The contract is the one thing both artifacts must honor."] -->
 
 ## What each artifact contains
@@ -32,7 +35,15 @@ The human artifact is structured differently. It opens with a purpose statement 
 
 That last section is the one that gets skipped when someone writes a recipe fast. And it is the one you need most at eleven PM on a Thursday when the output looks wrong and you don't know why.
 
-<!-- → [TABLE: Three columns — Section, AI artifact, Human artifact. Rows: Opening / read-first list / purpose statement; Core content / imperative commands with no commentary / annotated commands with output descriptions; Evidence / stop conditions and output checks / what success looks like in full; Logging / log entry template / what the log should contain and why; Failure / not present / named failure modes with specific causes. Caption: "The structural difference between the two artifacts — the same commands appear in both, but their context is inverted."] -->
+| Section | AI artifact | Human artifact |
+|---|---|---|
+| Opening | Read-first list | Purpose statement |
+| Core content | Imperative commands, no commentary | Annotated commands with output descriptions |
+| Evidence | Stop conditions and output checks | What success looks like, in full |
+| Logging | Log-entry template | What the log should contain, and why |
+| Failure | Not present | Named failure modes with specific causes |
+
+*Table 4.1 — The structural difference between the two artifacts: the same commands appear in both, but their context is inverted.*
 
 ## Drift is a failure mode, not just inconvenience
 
@@ -43,6 +54,9 @@ Drift happens because updates feel minor. You change one command — you add a f
 Six weeks later, you read the human doc to understand why the scan recipe works the way it does. The human doc describes a workflow that no longer exists. It names a file the recipe no longer produces. It lists a command that now fails without a flag the recipe added. You can no longer trust the documentation, which means you now have to reverse-engineer the recipe to understand your own recipe, which costs more time than writing the human doc would have.
 
 Drift is its own failure mode — not a consequence of forgetting to maintain the docs, but a structural property of having two artifacts with no enforcement binding them. The only enforcement is discipline: when you update one, you update both in the same commit, and the human doc's failure-modes section explicitly lists "human doc not updated when recipe changes" as one of the named failure modes. The system cannot automate this. The discipline is yours.
+
+![Two parallel tracks — recipe and card — across three time positions: initially in sync, then the recipe is updated while the card stays unchanged and the connector between them breaks, then a reader follows the stale card down a wrong path diverging from the recipe's actual behavior.](images/04-two-customers-fig-03.png)
+*Figure 4.3 — Drift: when the map leaves the territory*
 
 ## Both artifacts honor the verified-data contract
 
@@ -156,6 +170,9 @@ npm run ats:verify
 
 The commands are identical between the two artifacts. What differs is the frame: the recipe assumes the reader will execute immediately; the human card assumes the reader is trying to understand. The same content, arranged for two different questions — "what do I run?" versus "what is this and how does it break?"
 
+![A section-by-section matrix mapping the five recipe sections across the two artifacts — opening, core content, evidence, logging, failure — where the AI column carries terse imperative chips and the human column fuller annotated chips, and the failure row shows an empty AI cell against the heaviest chip in the human column.](images/04-two-customers-fig-02.png)
+*Figure 4.2 — Same content, inverted context: section-by-section*
+
 <!-- → [INFOGRAPHIC: Two annotated documents side by side — left labeled "AI Recipe (scan.md)" with callout arrows pointing to: read-first list, verbatim commands, stop condition, log template; right labeled "Human Card (scan — maintainer view)" with callout arrows pointing to: purpose statement, dependency list, annotated commands, failure modes numbered 1–4. Caption: "The recipe is optimized for execution. The card is optimized for comprehension. Neither does the other's job."] -->
 
 ## What writing them twice forces you to think about
@@ -172,39 +189,201 @@ That question — are these the right numbers? — is the subject of Chapter 5. 
 
 ---
 
-## Exercises
+## Chapter 4 Exercises: Two Customers
 
-**Warm-up**
+**Project:** Your Own Reallocation Engine
 
-1. *(Recall, easy)* Name the two customers a recipe must serve and describe in one sentence what each one needs from the recipe document. Why does a document that tries to serve both simultaneously tend to serve neither?
-   *Tests whether you can articulate the two-customer problem before applying it.*
+**This chapter adds:** the authoring discipline your engine is maintained with — for one recipe in your repo you write both artifacts, the terse AI recipe and the human card, bound by the shared contract, so tonight's agent can run it and March's you can fix it.
 
-2. *(Recall, easy)* What is the first item in the `scan` recipe's read-first list, and why does the recipe specify it first rather than letting the agent decide when to load it?
-   *Tests whether you understand the shared contract as a prior constraint on execution, not a reference document.*
+---
 
-3. *(Identify, easy)* List three things the `scan` recipe explicitly states it cannot verify on its own. For each one, name which other part of the engine would need to provide that information.
-   *Tests whether you've understood the scan recipe's scope before extending it.*
+### Exercise 1 — When to Use AI
 
-**Application**
+**The judgment:** In this chapter's work, AI assistance is appropriate for the following tasks:
 
-4. *(Apply, moderate)* Take any recipe in the `recipes/` directory other than `scan.md`. Write its human card from scratch: purpose statement, dependencies, how to run, what it produces, and at least two named failure modes. Compare your card against the recipe file — what did the original file contain that you missed, and what did you name that the original file didn't?
-   *Tests the transition from understanding the two-artifact structure to producing the human artifact for a real recipe.*
+- **Drafting the human card's prose sections (purpose, how-to-run) from the recipe.** — *Why AI works here:* turning a command list into readable explanation is drafting against a source you hold; you check it against the actual recipe.
+- **Generating a first list of candidate failure modes for a recipe.** — *Why AI works here:* this is adversarial brainstorming — the model proposes ways things break, you keep the ones that are real for your setup.
+- **Diffing a recipe against its human card to flag mismatched commands.** — *Why AI works here:* spotting where two texts disagree is pattern-matching you can confirm line by line.
 
-5. *(Analyze, moderate)* Run `npm run ats:scan` and then `npm run ats:verify`. Read both outputs. Write the `RUN_LOG.md` entry according to the scan recipe's log template. Then write one sentence identifying whether any part of the output required LLM judgment to interpret, and if so, how that judgment is labeled.
-   *Tests the run-inspect-record loop applied to the scan recipe specifically, with attention to the data/judgment boundary.*
+**The tell:** You know you are using AI appropriately when you can evaluate the output — when you have independent criteria to judge whether it is correct, complete, and fit for purpose. Here the criterion is the recipe file: the card must describe what the recipe actually does.
 
-6. *(Analyze, moderate)* The chapter describes drift as a failure mode: the recipe changes and the human doc doesn't. Describe a realistic scenario in which drift would cause an incorrect run tonight. What would the incorrect run look like, and how would you detect that it was wrong? What single change to your workflow would prevent the scenario?
-   *Tests adversarial reasoning about drift as a structural problem, not just a maintenance oversight.*
+---
 
-**Synthesis**
+### Exercise 2 — When NOT to Use AI
 
-7. *(Synthesize, harder)* Design the human card for a hypothetical new recipe — call it `refresh` — that re-downloads and re-verifies SEC Form D data for companies already in the pipeline. You don't have the recipe in front of you. Write the dependency list, the commands (drawing only from what `recipes/_shared.md` lists as real commands), and at least three failure modes that are specific to re-downloading data that may have already been verified. Explain your reasoning for each failure mode.
-   *Tests whether you can construct the human artifact from first principles using the shared contract as your ground.*
+**The judgment:** In this chapter's work, the following tasks require human judgment. Delegating them to AI is not appropriate — not because AI cannot produce output, but because AI output in these cases cannot be trusted without verification that requires the same expertise as doing the task yourself.
 
-8. *(Synthesize, harder)* The chapter argues that writing the failure-modes section of the human card is a test of the recipe. Pick one failure mode from the `scan` recipe's human card above. Trace backwards from that failure mode to a gap in the recipe — a condition the recipe doesn't handle, a step it doesn't specify, a stop condition it doesn't include. Write the missing recipe element. Then explain why the failure mode, not the recipe, was easier to see first.
-   *Tests whether you can use the human artifact as a diagnostic tool for improving the AI artifact.*
+- **Deciding the recipe's stop conditions — when an agent must halt rather than improvise.** — *Why AI fails here:* a missing stop condition is exactly where an agent invents data; deciding where the cliffs are requires knowing your data and your stakes, not generic caution.
+- **Confirming the commands in the recipe actually run in your environment.** — *Why AI fails here:* the model can write a plausible command that doesn't exist in your repo; only running it proves it.
+- **Judging whether a failure mode is complete enough to trust the recipe tonight.** — *Why AI fails here:* "have I thought of how this breaks for my companies?" is the adversarial judgment the chapter says writing the card forces — and it forces *you*, not the model.
 
-**Challenge**
+**The tell:** You know you have crossed the line when you are using AI output as your reason for a conclusion rather than as a tool for reaching one. If you could not explain the conclusion without the AI, the AI did the work that should have been yours.
 
-9. *(Evaluate, open-ended)* The two-artifact design requires discipline to maintain because there is no automatic enforcement binding the recipe and the human card. Propose a lightweight enforcement mechanism — it can be a naming convention, a commit hook, a section in the log template, or anything else — that would make drift detectable without requiring a human to compare the two artifacts manually on every update. Specify what the mechanism checks, what signal it produces when drift is detected, and what it cannot catch. Then evaluate its tradeoff: how much friction does it add per update, and how much drift does it prevent?
-   *Tests whether you can design an enforcement solution that takes the two-customer constraint seriously, including its limits.*
+**Series connection:** This exercise trains **Tier 4 (Metacognitive supervision)** — writing the failure-modes section is a structured way of asking "what don't I yet understand about my own recipe?", which is metacognition made into a document.
+
+---
+
+### Exercise 3 — LLM Exercise
+
+**What you're building this chapter:** the human card for one recipe in your engine — purpose, dependencies, annotated commands, and named failure modes — the maintainer's letter to future-you.
+
+**Tool:** Claude (claude.ai chat). Chat fits: you paste a recipe and have the model help draft its companion card, which you then verify against the file.
+
+**The Prompt:**
+
+```
+I follow a "two customers" rule: every recipe has an AI version (terse,
+imperative, for an agent to execute) and a human card (for the maintainer who
+has forgotten the context). I will paste the AI recipe below. Write its HUMAN
+CARD only. Do not invent commands, files, or behavior that are not in the recipe
+— if something is unclear, list it under "Open questions for me to resolve"
+rather than guessing.
+
+Structure the card as:
+1. Purpose — 1–2 sentences: what this recipe is FOR.
+2. What it can verify / what it cannot verify on its own.
+3. Dependencies — files it reads, scripts it calls, recipes it assumes ran first
+   (only those named in the recipe).
+4. How to run — the same commands, annotated with what each does and what to
+   notice in the output.
+5. What it produces — files written, what a good audit looks like, the log entry.
+6. How it fails — at least 4 NAMED failure modes with specific causes, including
+   one for "recipe updated but this card wasn't" (drift) and one for "script
+   produced nothing and the model filled the gap" (contract violation).
+
+--- PASTE YOUR AI RECIPE BELOW ---
+[paste one recipe from your recipes/ directory here]
+```
+
+**What this produces:** a complete human card for a real recipe, with an explicit drift failure mode and a contract-violation failure mode — saved next to the recipe it documents.
+
+**How to adapt this prompt:**
+- *For your own project:* paste a recipe you actually have. If the model lists "open questions," that's the gap in your recipe surfacing — resolve those before trusting the card.
+- *For ChatGPT / Gemini:* works as-is; both may pad the purpose section — append "purpose section max two sentences."
+- *For a Claude Project:* keep the two-artifact structure in the project instructions so every card you draft has the same shape.
+
+**Connection to previous chapters:** the card's "what it cannot verify" section is where Chapter 3's coverage-gap honesty becomes part of your documentation.
+
+**Preview of next chapter:** Chapter 5 asks whether the data these recipes read is measuring the right thing — the card's "what it cannot verify" line is where that question first appears.
+
+---
+
+### Exercise 4 — CLI Exercise
+
+**What you're building this chapter:** a matched recipe + human card pair committed together, with a check that their commands agree — drift caught at write time, not at 11 PM.
+
+**Tool:** Claude Code. Reading a recipe, writing a card, and diffing the two across files is a multi-file workflow suited to an agentic CLI.
+
+**Skill level:** Intermediate — file editing plus a comparison step.
+
+**Setup:**
+
+Before running this exercise, confirm:
+- [ ] Your forked repo has a `recipes/` directory with at least one recipe.
+- [ ] You completed Chapter 3's run so `RUN_LOG.md` and the contract rule exist.
+- [ ] You've picked which recipe to document (the `scan` recipe is a good first target).
+
+**The Task:**
+
+```
+In my engine repo, create a maintainer card for one recipe and verify it matches.
+Do not change the recipe's behavior; do not run any data-fetching scripts.
+
+1. Read recipes/scan.md (or the recipe I name).
+2. Write recipes/scan.card.md as the human card: purpose, can/cannot verify,
+   dependencies, annotated commands, what it produces, and at least 4 named
+   failure modes (include drift and contract-violation). Use ONLY commands and
+   files that appear in the recipe.
+3. Extract the list of shell/npm commands from the recipe and from the card and
+   compare them. Print any command that appears in one but not the other — this
+   is the drift check.
+4. If the command lists differ, do NOT silently fix them; show me the difference
+   and ask which is correct.
+5. Show me both files and the drift-check result. Stop.
+```
+
+**Expected output:** a new `recipes/scan.card.md`, plus a printed drift-check confirming the recipe and card list the same commands (or flagging where they differ).
+
+**What to inspect in the output:** read the failure-modes section — are they specific to your setup ("if `portals.yml` is missing, the scan runs against the example config") or generic ("errors may occur")? Generic failure modes mean the card isn't yet doing its job. Confirm the drift check actually compared commands rather than just asserting they match.
+
+**If it goes wrong:** the likely failure is the card inventing a command the recipe doesn't have (or vice versa), which the drift check should catch. Recover by trusting the recipe as ground truth and correcting the card — never edit the recipe to match a card the model wrote.
+
+**CLAUDE.md / AGENTS.md note:** add a standing rule — *"Every recipe has a paired `.card.md`; when a recipe's commands change, update the card in the same commit and re-run the drift check. 'Card not updated' is itself a logged failure mode."* This is the lightweight enforcement the chapter's final question asks for.
+
+---
+
+### Exercise 5 — AI Validation Exercise
+
+**What you're validating:** an AI-written recipe/card pair that has drifted — the card describes a workflow the recipe no longer runs.
+
+**Validation type:** Agentic output (documentation vs. executable instructions).
+
+**Risk level:** High — a drifted card sends an agent down a path that silently produces wrong data, and nothing in the run announces it.
+
+**Setup (pre-generated artifact — option b):** This chapter's lesson is drift, which your own freshly-written pair won't yet show, so validate this pre-generated mismatched pair:
+
+> **AI recipe (refresh.md):**
+> ```
+> Read first: recipes/_shared.md
+> Run:
+>   npm run sec:refresh -- --since 2024-01-01
+>   npm run sec:verify
+> Stop if: sec:verify reports coverage below 90%.
+> ```
+> **Human card (refresh.card.md):**
+> *Purpose.* Re-download SEC Form D data and verify it.
+> *How to run:* `npm run sec:refresh` then `npm run sec:audit`.
+> *What it produces:* a refreshed dataset and an audit; no stop conditions
+> needed since the script handles errors automatically.
+
+**The Validation Task:**
+
+Evaluate the AI output above using the following checklist. For each item, record: Pass / Fail / Cannot determine — and explain your reasoning.
+
+```
+Validation Checklist — Two Customers
+
+□ Correctness: Do the commands in the recipe and the card match?
+  (recipe: sec:refresh --since ... + sec:verify;  card: sec:refresh + sec:audit)
+□ Completeness: Does the card capture the recipe's stop condition?
+  The recipe halts below 90% coverage — does the card mention it?
+□ Scope: Does the card claim something the recipe contradicts?
+  ("no stop conditions needed" vs. an explicit stop-if line)
+□ Drift check (chapter-specific): List every command/condition present in one
+  artifact but absent or different in the other.
+□ Contract check (chapter-specific): The card says the script "handles errors
+  automatically" — does anything in the recipe support that, or is it an
+  unverified reassurance?
+□ Failure mode check: Does this output exhibit any of the following?
+  - Drift (recipe and card describe different workflows)
+  - A dropped stop condition (the agent won't halt where it should)
+  - Fluent but wrong (a confident card that misdescribes the recipe)
+```
+
+**What to do with your findings:**
+- If the pair passes all checks: trust it. (It will not — the commands and stop conditions disagree.)
+- If it fails one check: correct the card to match the recipe (the executable artifact is ground truth) and re-run the drift check.
+- If it fails multiple checks or you cannot determine pass/fail: this is a "When NOT to Use AI" moment — rewrite the card yourself against the recipe, line by line.
+
+**AI Use Disclosure prompt:**
+After completing this validation, write a two-sentence AI Use Disclosure:
+> *Sentence 1:* What AI produced in this exercise and how you used it.
+> *Sentence 2:* One specific thing the AI could not determine that required your judgment.
+
+**Series connection:** This exercise trains **Tier 4 metacognitive supervision** applied to your own tooling — noticing when the map (the card) and the territory (the recipe) have quietly diverged, before an agent acts on the wrong one.
+
+---
+
+## Prompts
+
+### Figure 4.1 — Two customers, one contract
+**Files:** images/04-two-customers-fig-01.svg · d3/04-two-customers-fig-01.html
+**Prompt:** Two boxes side by side on white — a terse AI artifact and a fuller human artifact — both resting on one wide foundation bar for the verified-data contract, arrows rising from the foundation into each. Keep the two boxes in neutral grays and mark the shared contract foundation in the one red accent so divergence-above-convergence-below reads at a glance.
+
+### Figure 4.2 — Same content, inverted context: section-by-section
+**Files:** images/04-two-customers-fig-02.svg · d3/04-two-customers-fig-02.html
+**Prompt:** A section-by-section matrix on white with a section-label column and two artifact columns across five rows, each cell a weighted chip. Hold the columns in neutral grays and make only the failure row asymmetric — an empty AI cell against the heaviest human chip rendered in the one red accent.
+
+### Figure 4.3 — Drift: when the map leaves the territory
+**Files:** images/04-two-customers-fig-03.svg · d3/04-two-customers-fig-03.html
+**Prompt:** Two parallel tracks on white across three time positions — recipe and card in sync, then the recipe edits while the connector breaks, then a reader follows the stale card down a wrong path. Render both tracks in neutral grays and reserve the one red accent for the broken connector and the diverging wrong-path branch.

@@ -22,6 +22,13 @@ claude_only:
   - "@SNICKERDOODLE.md"
   - "- Use plan mode before edits under recipes/, data/, or anything touching data/ats/ (private)."
 
+# Output adapters to generate. AGENTS.md is canonical (inlined); every other entry
+# is a thin shim that POINTS at AGENTS.md (no rule duplication, regenerated each
+# build so it cannot drift). Add/remove tools here as the toolchain changes.
 targets:
-  - agents
-  - claude
+  - agents    # AGENTS.md — canonical cross-tool standard (Codex, Cursor, Copilot, Gemini read it)
+  - claude    # CLAUDE.md — @import AGENTS.md + Claude-only tail
+  - gemini    # .gemini/settings.json — context.fileName → AGENTS.md
+  - aider     # .aider.conf.yml — read: AGENTS.md
+  - copilot   # .github/copilot-instructions.md — pointer to AGENTS.md
+  - cursor    # .cursor/rules/reallocation-engine.mdc — alwaysApply pointer to AGENTS.md

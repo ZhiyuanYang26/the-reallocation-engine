@@ -12,6 +12,27 @@ The main gap is not instruction quality. The main gap is **portable context arch
 
 Recommended near-term move: do not replace the existing Snickerdoodle system. Add a thin compatibility layer that maps the existing system into the portable conventions.
 
+## Resolution Status — 2026-06-15
+
+The thin compatibility layer has been added and the build/verify pipeline now enforces it. Findings below are annotated `RESOLVED` / `PARTIAL` / `ADVISORY`.
+
+**Done:**
+
+- **Portable files (Phase 1):** `_MANIFEST.md`, `.ai/manifest.yaml`, `PROJECT_RULES.md`, `session-handoff.md` added as thin indexes over the existing system. `status.md` already existed and is now referenced from the manifest. `_MANIFEST.md` is wired into the generated `AGENTS.md` via `instructions/reallocation-engine.md`.
+- **CLI-agnostic adapters (Phase 2):** `scripts/build-instructions.mjs` now generates, from the single `instructions/` source, thin shims that all point at the canonical `AGENTS.md`: `.gemini/settings.json`, `.aider.conf.yml`, `.github/copilot-instructions.md`, `.cursor/rules/reallocation-engine.mdc` (plus the existing `AGENTS.md`/`CLAUDE.md`). Tools are listed in `instructions/manifest.yml` `targets:`. No rule content is duplicated; rebuild is idempotent.
+- **Enforcement (Phase 4):** `scripts/manifest-check.mjs` checks that canonical files exist, that every generated adapter matches a fresh build (catches hand-edits / un-rebuilt drift), and warns on gitignore/privacy/contradiction gaps. It is wired into `npm run verify` (`conformance && manifest-check`) and exposed as `npm run manifest-check`. Verified: a hand-edit to `AGENTS.md` makes `verify` exit 1.
+- **Hook naming drift:** the `.claude/hooks/*` "Madison" strings are now "Snickerdoodle"; behavior unchanged.
+- **`.gitignore`:** `.build/` (generated instruction staging) added.
+- **`data/ats/` privacy:** `data/ats/.gitignore` added with an ignore-all + allowlist policy — everything private by default; only `portals.example.yml` (and the policy file) allowlisted. `applications.md`/`pipeline.md`/`scan-history.tsv`/`application-patterns-audit.md` are now ignored. `manifest-check` recognizes the nested ignore-all, so the privacy warning clears.
+- **CI:** `.github/workflows/verify.yml` now runs `conformance` + `manifest-check` on every push/PR (the manifest check subsumes the old AGENTS/CLAUDE-only drift diff and covers all six generated adapters + canonical existence).
+
+**Open / deferred (human decisions, surfaced as `manifest-check` warnings):**
+
+- Whether `output/`, `reports/generated/`, and `archive/` should be gitignored. `archive/` is likely *intentionally* tracked (no-delete recoverability); `reports/generated/` holds the honest-run report under review. Left to the maintainer.
+- `data/ats/application-patterns-audit.md` is **already tracked** from before the new `.gitignore` (gitignore does not untrack). It is currently empty (zero rows) but is generated from private data — run `git rm --cached data/ats/application-patterns-audit.md` to stop tracking it if desired.
+- A dedicated pre-commit secret scanner (beyond the gitignore policy) is still not in place.
+- Physical removal of `scripts/**/__pycache__/` (already gitignored).
+
 ## What Is Already Strong
 
 | Area | Current repo evidence | Assessment |
@@ -42,7 +63,7 @@ next: promote a recipe past DRAFT with a logged run
 
 ## Findings
 
-### P1 - Missing Portable Manifest Layer
+### P1 - Missing Portable Manifest Layer — RESOLVED (2026-06-15)
 
 The guide recommends `_MANIFEST.md` as the first file an agent should read. This repo has `DOMAIN.md`, which performs part of that job, and `instructions/manifest.yml`, which builds instruction files. But there is no root `_MANIFEST.md`, and no `.ai/manifest.yaml` structured twin.
 
@@ -62,7 +83,7 @@ Tier 2: docs/, recipes/, scripts/, data/* domain folders, chapters/
 Tier 3: output/, node_modules/, __pycache__/, generated reports, private ATS outputs
 ```
 
-### P1 - No Dedicated `status.md`
+### P1 - No Dedicated `status.md` — RESOLVED (status.md exists; now referenced from _MANIFEST.md)
 
 `DOMAIN.md` contains current gaps and defects, while `logs/RUN_LOG.md` is the ground-truth run history. That works for this repo, but it overloads `DOMAIN.md` with both durable domain definition and current-state tracking.
 
@@ -74,7 +95,7 @@ Recommendation:
 - Let it point to `DOMAIN.md` for domain layout and `logs/RUN_LOG.md` for full run history.
 - Keep current blockers, latest meaningful changes, active work, and next actions there.
 
-### P1 - No Dedicated `session-handoff.md`
+### P1 - No Dedicated `session-handoff.md` — RESOLVED (2026-06-15)
 
 The guide recommends a portable handoff file to replace tool-specific compaction or `/clear` behavior. This repo does not currently have a root `session-handoff.md` or `.ai/sessions/`.
 
@@ -86,7 +107,7 @@ Recommendation:
 - Add `.ai/sessions/` for dated handoff archives if this becomes frequent.
 - Include current task, files changed, decisions, verification, and "do not reload" notes.
 
-### P1 - Generated / Transient Boundaries Are Partially Inconsistent
+### P1 - Generated / Transient Boundaries Are Partially Inconsistent — PARTIAL (documented in manifest; .build/ gitignored; output/archive gitignore left to maintainer)
 
 The guide recommends explicit `build/`, `outputs/`, `staging/`, and `archive/` boundaries. This repo currently has `output/`, `logs/`, generated reports beside data, `node_modules/`, and Python `__pycache__/` folders inside `scripts/`.
 
@@ -104,7 +125,7 @@ Recommendation:
 - Remove rebuildable cache files from the working tree when safe.
 - Add `.ai/`, `build/`, `staging/`, and `outputs/` to `.gitignore` if those folders are introduced and are intended to be generated/transient.
 
-### P2 - `PROJECT_RULES.md` Role Is Covered But Not Portable By Name
+### P2 - `PROJECT_RULES.md` Role Is Covered But Not Portable By Name — RESOLVED (2026-06-15)
 
 `SNICKERDOODLE.md` plus `DOMAIN.md` are stronger than a generic `PROJECT_RULES.md`. However, tools and future maintainers expecting the guide's convention will not find `PROJECT_RULES.md`.
 
@@ -118,7 +139,7 @@ Recommendation:
 
 This avoids duplicating rules while preserving cross-tool discoverability.
 
-### P2 - Tool Adapter Coverage Is Incomplete
+### P2 - Tool Adapter Coverage Is Incomplete — RESOLVED (Gemini, Aider, Copilot, Cursor generated from instructions/)
 
 The repo has:
 
@@ -142,7 +163,7 @@ Recommendation:
 - Prefer generated adapters from `instructions/` rather than hand-written copies.
 - First useful additions: `GEMINI.md` and `.github/copilot-instructions.md` as thin pointers to `AGENTS.md`, plus `.aider.conf.yml` if Aider is used.
 
-### P2 - Claude Hooks Contain Copy/Paste Naming Drift
+### P2 - Claude Hooks Contain Copy/Paste Naming Drift — RESOLVED (2026-06-15)
 
 Both `.claude/hooks/archive-guard.sh` and `.claude/hooks/conformance-check.sh` describe failures as "Madison" conformance/no-delete rules. This is small but misleading in this repo.
 
@@ -151,7 +172,7 @@ Recommendation:
 - Rename those user-facing messages to "Snickerdoodle" or "The Reallocation Engine."
 - Keep the behavior unchanged.
 
-### P2 - Privacy Boundary Needs Enforcement Beyond Prose
+### P2 - Privacy Boundary Needs Enforcement Beyond Prose — PARTIAL (.ai/manifest.yaml private: block added; data/ats/.gitignore allowlist added; CI verify enforced; pre-commit secret scan pending)
 
 `DOMAIN.md` and `AGENTS.md` correctly warn that `data/ats/`, rendered resumes/PDFs, and `.env*` are private by default. But this appears to be a prose rule rather than a cross-tool guard.
 
@@ -161,7 +182,7 @@ Recommendation:
 - Add pre-commit or verification checks for sensitive paths if this repo will be shared broadly.
 - Consider a `data/ats/.gitignore` policy for generated/private scan outputs, with explicit allowlist exceptions for safe fixtures.
 
-### P3 - Existing CLI-Agnostic Guide Is Present But Not Integrated
+### P3 - Existing CLI-Agnostic Guide Is Present But Not Integrated — RESOLVED (referenced in _MANIFEST.md Tier 2 as design reference, not governing)
 
 `docs/cli-agnostic-ai-tooling-guide.md` exists in the working tree, but current `AGENTS.md`, `DOMAIN.md`, and `docs/repo-structure.md` do not yet point to it as a design reference.
 
@@ -170,7 +191,7 @@ Recommendation:
 - If the guide is intended to be canonical, add it to `_MANIFEST.md` Tier 2 and reference it from `docs/README.md`.
 - If it is research/background only, mark it that way so agents do not treat it as governing instructions.
 
-### P3 - Dirty Working Tree Should Be Resolved Before Structural Changes
+### P3 - Dirty Working Tree Should Be Resolved Before Structural Changes — ADVISORY (review/commit before broad restructuring)
 
 At audit time, `git status --short` reported existing modified/untracked files:
 

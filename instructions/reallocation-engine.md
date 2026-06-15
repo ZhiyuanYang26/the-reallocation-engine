@@ -2,6 +2,7 @@
 
 An **evidence-first job-search system for international students** (F-1/OPT/STEM OPT), and the working repository for the book *The Reallocation Engine*. It reallocates scarce application effort using five evidence components — company funding (SEC Form D), sponsorship history (DOL/H-1B), posting liveness (ATS), role quality (BLS/O*NET), and visa timeline — where liveness and timeline are **gates, not votes** (a healthy run skips at least half of evaluated roles). It is a domain built on the Snickerdoodle framework. Project-specific rules:
 
+- Read `_MANIFEST.md` for the portable read-first map — what is canonical, task-relevant, generated, or private (a thin index over `SNICKERDOODLE.md` / `DOMAIN.md`; machine-readable twin in `.ai/manifest.yaml`).
 - Use lowercase `scripts/`; never create `SCRIPTS/`.
 - Manuscript content lives in `chapters/` — no scripts or data there.
 - `data/ats/`, rendered resumes/PDFs, and `.env*` are **private by default** — review before commit (they reveal personal job-search activity).

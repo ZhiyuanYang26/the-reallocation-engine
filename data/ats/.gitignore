@@ -1,0 +1,15 @@
+# data/ats/ is PRIVATE by default — personal job-search activity.
+# (SNICKERDOODLE.md / DOMAIN.md / .ai/manifest.yaml: data/ats/ reveals real targets
+#  and outcomes.) Policy: ignore everything here, then allowlist ONLY safe,
+# shareable fixtures by name.
+#
+# Stays private (never committed): applications.md, pipeline.md, scan-history.tsv,
+# application-patterns-audit.md (generated FROM the private applications), and any
+# scan output naming real companies.
+
+# Ignore everything in this directory…
+*
+
+# …except this policy file and explicitly-safe fixtures:
+!.gitignore
+!portals.example.yml

@@ -29,6 +29,9 @@ Watch how this shows up in how work is actually graded. In courses that permit A
 
 So the question "can you do the work?" has split into two questions that now have wildly different answers. Can you produce the artifact? Yes — so can everyone, instantly. Can you tell whether the artifact is any good? That is the only question left with a scarce answer. And it is the one the screen never asks you.
 
+![Two aligned stacked bars. The first splits total value into a large procedural-competence base and a smaller judgment cap. The second recuts the same split by supplier — the procedural base is machine-suppliable, the small judgment cap is human-exclusive.](images/01-the-fluency-trap-fig-01.png)
+*Figure 1.1 — The value split: who can supply the work*
+
 <!-- → [CHART: two-bar column chart showing the value split — "Procedural competence" (~75-80%) vs "Judgment" (~20-25%) as share of grade/market value; a second panel shows the same split for "Who can supply it" — AI can supply the first bar almost entirely, humans exclusively supply the second; caption should read: "The question 'can you do the work?' has split. One half is now free. The other has not moved."] -->
 
 ## Why the Doing Was the Training
@@ -46,6 +49,9 @@ Then — and this is the move that makes it an experiment about judgment rather 
 The hand-coding group averaged 67 percent. The AI-assisted group averaged 50 percent. Seventeen points — close to two letter grades — opened up between two sets of people who had just spent the same amount of time on the same problem.[^anthropic] The only thing that differed was whether a machine did the executing.
 
 And here is the detail that turns a finding into a warning. Inside the AI group, behavior split the outcome cleanly. The engineers who used the model to *interrogate* — asking it conceptual questions, challenging its answers, forcing themselves to understand what it produced — scored 65 percent or higher. The engineers who used it to *delegate* — describe the problem, accept the output, move on — scored below 40.[^anthropic] Same tool. Same task. Opposite result. The variable was not the AI. It was whether the human kept doing the judgment work while the machine did the typing.
+
+![Three vertical bars. Hand-coding and AI-plus-interrogation sit at nearly the same height; AI-plus-delegation drops off sharply, with a faint reference line linking the two high bars.](images/01-the-fluency-trap-fig-02.png)
+*Figure 1.2 — The Anthropic RCT: comprehension by how the tool was used*
 
 <!-- → [INFOGRAPHIC: three-column comparison — "Hand-coding" (67% comprehension quiz average), "AI + interrogation" (≥65%), "AI + delegation" (<40%); visual treatment should emphasize that the middle and left columns converge while the right column falls off sharply; caption: "The tool is identical in the middle and right columns. The variable is what the human does while it runs."] -->
 
@@ -71,6 +77,9 @@ This is the inversion that has happened to skilled work across the board. A soft
 
 And the market is pricing it exactly that way. As of 2025, AI had moved from a curiosity to a board-level liability: the share of S&P 500 companies naming AI as a *material risk* in their annual filings jumped from 12 percent in 2023 to 72 percent in 2025.[^spx] A material risk is not hype — it is a legal disclosure that this could hurt the company badly enough that shareholders must be warned. Seven hundred of America's largest firms, in the dry language of securities law, are telling their investors that getting the judgment wrong about these fluent machines is a danger to the enterprise. The thing they are afraid of is not that the AI cannot execute. It is that someone will trust a fluent output that was wrong.
 
+![A single rising line across three time points — about 12 percent in 2023, 72 percent in 2025, and 83 percent in the late-2025 update — with the steep first segment emphasized as the moment hype becomes liability.](images/01-the-fluency-trap-fig-03.png)
+*Figure 1.3 — AI as material risk: S&P 500 disclosures, 2023–2025*
+
 <!-- → [CHART: line chart, 2023–2025, showing share of S&P 500 companies disclosing AI as material risk in 10-K filings — from 12% to 72% to 83% (Conference Board Dec 2025 update); annotate the 2023→2025 jump with a label reading "hype becomes liability"; caption: "Seven hundred of America's largest companies are telling investors in legal language: trusting the wrong fluent output is an enterprise risk."] -->
 
 ## Why This Lands Hardest on You
@@ -80,6 +89,9 @@ Now bring the two pictures together — the student at the desk and the structur
 If you are an international student in the United States on F-1 status, working under Optional Practical Training, you are standing exactly where the boost and the drag pull hardest in opposite directions, and you are doing it against a clock written into federal law.
 
 Here is the clock. On post-completion OPT, you may accrue no more than ninety cumulative days of unemployment across your entire authorization period. Not business days — calendar days. Weekends count. Holidays count. The counter starts the day your work authorization begins and does not stop. Exceed it, and the Department of Homeland Security terminates your immigration record. There is no grace period. You must leave the country.[^opt] This is why the system at the heart of this book budgets to *eighty* days, not ninety — you want a margin between you and a cliff that does not forgive.
+
+![A single horizontal authorization bar with a filled cumulative-unemployment segment, a dashed marker at 80 days labeled the book's working limit, and a solid hard stop at 90 days where the immigration record is terminated with no grace period.](images/01-the-fluency-trap-fig-04.png)
+*Figure 1.4 — The 90-day OPT unemployment clock*
 
 <!-- → [INFOGRAPHIC: timeline diagram showing the 90-day unemployment clock — a horizontal bar representing the OPT authorization period, with a red segment marking cumulative unemployment days, a dashed line at 80 days labeled "this book's working limit," and a hard stop at 90 labeled "DHS terminates record / no grace period"; annotate that weekends and holidays count; caption: "The clock does not distinguish between a Tuesday and a Sunday. It runs."] -->
 
@@ -109,33 +121,192 @@ The machine will do the typing. The judgment is yours, and it always was. The re
 
 ---
 
-## Exercises
+## Chapter 1 Exercises: The Fluency Trap
 
-**Warm-up**
+**Project:** Your Own Reallocation Engine
 
-1. *Tests the execution/judgment distinction.* A classmate says, "I used AI to clean the data and it worked fine — the model ran without errors." What question should you ask before accepting that verdict? Identify the specific gap between "no errors" and "correct." *(Difficulty: Low)*
+**This chapter adds:** the foundation of your engine — the judgment frame it runs on. Before you collect a single record, you set up the project, write the interrogation reflex into it as a standing rule, and open the "what the machine could not know" log that every later chapter will feed.
 
-2. *Tests comprehension debt as a concept.* In your own words, explain why letting a model execute a task you don't yet understand increases your risk over time rather than reducing it. Use the debt metaphor: what is being borrowed, and when does it come due? *(Difficulty: Low)*
+---
 
-3. *Tests the AI boost/drag distinction.* Two new analysts join the same team on the same day with the same tools. Six months later, one has developed strong judgment and one has not. What behavioral difference during their first month most likely explains the gap? *(Difficulty: Low)*
+### Exercise 1 — When to Use AI
 
-**Application**
+**The judgment:** In this chapter's work, AI assistance is appropriate for the following tasks:
 
-4. *Tests interrogation vs. delegation in practice.* You ask a model to write a SQL query that returns the top ten customers by revenue last quarter. It returns a clean, well-formatted query in under three seconds. Write a list of five specific questions you should ask — either of the model or of yourself — before trusting that output in a stakeholder report. *(Difficulty: Medium)*
+- **Drafting the scaffolding of your project's founding documents.** — *Why AI works here:* a README, a folder layout, a checklist template are reformatting and boilerplate generation; you can read every line and judge whether it says what you mean.
+- **Generating a first-pass list of interrogation questions to ask of any fluent output.** — *Why AI works here:* this is option generation — the model proposes candidate questions, and you, holding the chapter's execution/judgment distinction, keep the ones that actually probe correctness.
+- **Explaining a concept you half-understand back to you in three different framings.** — *Why AI works here:* this is the *interrogation* mode the Anthropic trial rewarded; you are using the model to build judgment, not to skip it, and you verify by trying to re-explain it yourself.
 
-5. *Tests the value split between execution and judgment.* A job posting says: "We use AI tools extensively; comfort with AI-assisted coding is required." A classmate reads this as evidence that judgment skills matter less now that the tools do the coding. Construct the counter-argument, using the IBM example and the grading-split framing from this chapter. *(Difficulty: Medium)*
+**The tell:** You know you are using AI appropriately when you can evaluate the output — when you have independent criteria to judge whether it is correct, complete, and fit for purpose. In this chapter the criterion is: can you re-explain it without the model in front of you?
 
-6. *Tests the OPT clock stakes.* You have been on post-completion OPT for four months. You have used thirty days of your unemployment allowance. You receive a take-home assignment and have the option to submit the AI-generated version quickly or spend two additional days working through it yourself. What factors — specific to your immigration status and to the comprehension-debt argument — should shape that decision? *(Difficulty: Medium)*
+---
 
-**Synthesis**
+### Exercise 2 — When NOT to Use AI
 
-7. *Tests the rung-removal and judgment-pipeline arguments together.* IBM's decision to triple entry-level hiring in 2026 and redefine those roles around "systems judgment" appears to contradict the widespread claim that AI is eliminating entry-level jobs. Explain the logic that makes both statements simultaneously true, and identify what kind of company would make the error IBM is trying to avoid. *(Difficulty: High)*
+**The judgment:** In this chapter's work, the following tasks require human judgment. Delegating them to AI is not appropriate — not because AI cannot produce output, but because AI output in these cases cannot be trusted without verification that requires the same expertise as doing the task yourself.
 
-8. *Tests fluency vs. correctness as a systemic risk.* The chapter cites S&P 500 companies disclosing AI as a material risk in their 10-K filings. Why would a fluent-but-wrong output be categorized as an enterprise-level financial risk rather than just a quality-control problem? What does "material risk" mean in securities law, and what does the jump from 12% to 72% reveal about where corporate liability is now being located? *(Difficulty: High)*
+- **Deciding what your engine is actually for and what "a good outcome" means for you.** — *Why AI fails here:* this is a values-and-stakes judgment tied to your visa clock, your field, and your risk tolerance — facts the model does not have and would fabricate plausibly if asked.
+- **Submitting any take-home or assessment the model produced that you cannot defend line by line.** — *Why AI fails here:* this is the chapter's central trap — fluent output you cannot evaluate is comprehension debt, and the interview is where it comes due, with interest.
+- **Judging whether you are interrogating or delegating in a given session.** — *Why AI fails here:* the model cannot see your learning; only you can notice whether you understood the output or merely accepted it.
 
-**Challenge**
+**The tell:** You know you have crossed the line when you are using AI output as your reason for a conclusion rather than as a tool for reaching one. If you could not explain the conclusion without the AI, the AI did the work that should have been yours.
 
-9. *Open-ended; points toward Chapter 2.* The chapter identifies the interrogation/delegation split as the variable that determined outcomes in the Anthropic trial — but admits it doesn't yet know how to teach someone to feel which skill they're in while they're in it. Design a simple self-monitoring practice — something a student could do daily during a job search — that would help them notice, in real time, whether they are interrogating or delegating. What signal would they be listening for? *(Difficulty: Challenge)*
+**Series connection:** This exercise trains **Tier 4 (Metacognitive supervision)** — the capacity to monitor your own understanding and to distinguish a fluent surface from a grasped mechanism. The whole book's spine is this tier; Chapter 1 installs it before any tool is picked up.
+
+---
+
+### Exercise 3 — LLM Exercise
+
+**What you're building this chapter:** the founding charter of your engine — a one-page "What the machine cannot know about my search" document plus a reusable interrogation checklist — the first entry in the account that becomes your final deliverable.
+
+**Tool:** Claude (claude.ai chat). A Claude Project is worth starting now if you'll run the whole book here — put the charter in the project knowledge so every later chat inherits your stakes.
+
+**The Prompt:**
+
+```
+I am building a personal job-search "reallocation engine" over the course of a
+book, and this is the founding step. Help me draft two short documents. Ask me
+nothing you can infer; where you need a fact about my situation that you do not
+have, insert a clearly marked [FILL IN] placeholder rather than inventing it.
+
+Document 1 — "What the machine cannot know about my search" (about half a page):
+a plain-language list of the things an AI scorer or chatbot structurally cannot
+know about my job search — for example, private information about specific
+employers, my own deadline pressure, which mission I can speak about with
+conviction, what a particular rejection actually meant. Frame each as a
+one-line reminder I will re-read whenever I'm tempted to trust a fluent answer.
+
+Document 2 — "Interrogation checklist" (6–10 questions): a reusable list of
+questions I should ask of ANY fluent AI output before I act on it, grounded in
+the distinction between producing an artifact and judging whether it is correct.
+Include at least one question about what the output left out, one about what it
+would take to verify it, and one about what I become responsible for once I pass
+it to a human.
+
+Output both as clean markdown I can save. Do not pad with motivation.
+```
+
+**What this produces:** two markdown documents — `what-the-machine-cannot-know.md` and `interrogation-checklist.md` — that seed your project and that you will literally reuse in every later validation exercise.
+
+**How to adapt this prompt:**
+- *For your own project:* fill the `[FILL IN]` placeholders with your real field, visa timeline, and target sector before saving. The charter is worthless generic and sharp when specific.
+- *For ChatGPT / Gemini:* works as-is; both tend to add a pep-talk intro — append "no preamble, start with the first document's heading."
+- *For a Claude Project:* paste the finished charter into the project's custom instructions so it constrains every future answer.
+
+**Connection to previous chapters:** this is the first exercise — it establishes the judgment frame the rest build on.
+
+**Preview of next chapter:** Chapter 2 turns this frame into a time budget — you'll build the 3-3-2 plan and the target list your engine actually runs against.
+
+---
+
+### Exercise 4 — CLI Exercise
+
+**What you're building this chapter:** the skeleton of your project repository — the folders, a `JUDGMENT_LOG.md`, and a `CLAUDE.md` seeded with the interrogation rule so the rule binds every future agentic session.
+
+**Tool:** Claude Code. Scaffolding a directory, creating several files, and seeding a persistent instruction file is a multi-file setup task that suits an agentic CLI over chat.
+
+**Skill level:** Beginner — this is your first terminal exercise; it creates files and does not touch data.
+
+**Setup:**
+
+Before running this exercise, confirm:
+- [ ] You have a folder where your engine will live, and Claude Code can open it.
+- [ ] You saved the two documents from Exercise 3 (you'll move them into the repo).
+- [ ] You have decided nothing destructive runs without your say-so (you'll state this in the task).
+
+**The Task:**
+
+```
+Create the starting structure for a personal job-search project in this folder.
+Do not delete or overwrite anything that already exists — if a file is present,
+stop and show me before changing it.
+
+1. Create these folders: data/, recipes/, reports/, notes/.
+2. Create JUDGMENT_LOG.md with a short header and one empty dated template entry
+   with fields: Date, What I asked AI to do, Interrogation/Delegation (which was
+   it?), What the machine could not know, What I verified myself.
+3. Create CLAUDE.md containing a single standing rule, stated plainly:
+   "Before trusting any count, claim, or recommendation in this project, run the
+   check that produces it and read the output. Never accept an invented number.
+   Label anything that is AI judgment rather than a counted fact."
+4. Move my two files (what-the-machine-cannot-know.md and
+   interrogation-checklist.md) into notes/ if they are in this folder.
+5. Print the resulting file tree and the contents of CLAUDE.md so I can confirm.
+
+Stop after step 5.
+```
+
+**Expected output:** a project tree with four folders, a `JUDGMENT_LOG.md` template, a `CLAUDE.md` carrying the interrogation rule, and your two charter files filed under `notes/`.
+
+**What to inspect in the output:** read `CLAUDE.md` back — is the rule stated as an instruction the agent will actually follow, or as vague aspiration? Confirm nothing pre-existing was overwritten.
+
+**If it goes wrong:** the most common failure is the agent creating files at the wrong path (e.g. a nested duplicate folder). Recover by asking it to print the absolute path of each file it created and move any misplaced ones; do not let it "clean up" by deleting without showing you first.
+
+**CLAUDE.md / AGENTS.md note:** this exercise *is* the CLAUDE.md note — you are establishing the project's first standing rule. Every later chapter adds to this file; Chapter 3 will tighten this rule into the full verified-data contract.
+
+---
+
+### Exercise 5 — AI Validation Exercise
+
+**What you're validating:** a fluent, confident take-home solution of exactly the kind the chapter opens with — code that runs clean and is quietly wrong.
+
+**Validation type:** Code (with a reasoning-chain component).
+
+**Risk level:** High — it runs without errors, which is precisely what makes the flaw invisible to anyone who only checks whether it executes.
+
+**Setup (pre-generated artifact — option b):** This chapter's lesson is that fluent output looks like success, so validate this pre-generated artifact rather than something you wrote. An AI was asked to "clean this applicant dataset and justify your choices":
+
+> ```python
+> # Clean the applicant dataset: drop incomplete records, then summarize.
+> import pandas as pd
+> df = pd.read_csv("applicants.csv")
+> df_clean = df.dropna()          # remove rows with any missing values
+> rate = (df_clean["passed_screen"].mean())
+> print(f"Cleaned {len(df_clean)} of {len(df)} rows.")
+> print(f"Screen pass rate: {rate:.1%}")
+> ```
+> *Justification (model-written):* "I removed incomplete records to ensure data
+> quality, then computed the screen pass rate on the clean data. The code runs
+> without errors and handles nulls appropriately."
+
+**The Validation Task:**
+
+Evaluate the AI output above using the following checklist. For each item, record: Pass / Fail / Cannot determine — and explain your reasoning.
+
+```
+Validation Checklist — The Fluency Trap
+
+□ Correctness: Does "runs without errors" mean the result is correct?
+  What does dropna() across ALL columns do to applicants who left one optional
+  field blank?
+□ Completeness: What did the justification leave out?
+  Does it report HOW MANY rows were dropped, or which kind of applicant they
+  were?
+□ Scope: Did the AI answer the actual question or a convenient version of it?
+  The task said "justify your choices" — is dropping all incomplete rows a
+  justified choice, or an unexamined default?
+□ Silent bias (chapter-specific): If applicants who skipped an optional field
+  are disproportionately the ones the screen was meant to surface, what does
+  dropping them do to the pass rate?
+□ Defensibility (chapter-specific): Could you explain and defend this cleaning
+  choice in an interview, line by line, without the model?
+□ Failure mode check: Does this output exhibit any of the following?
+  - Fluent but wrong (a clean, confident result that is quietly biased)
+  - Comprehension debt (output you would submit but could not reconstruct)
+  - Missing ground truth (no check on whether the dropped rows mattered)
+```
+
+**What to do with your findings:**
+- If the output passes all checks: use it. (It will not — `dropna()` across all columns is the trap.)
+- If the output fails one check: rewrite the prompt to ask which rows are dropped and why, re-run, and re-validate.
+- If the output fails multiple checks or you cannot determine pass/fail: this is a "When NOT to Use AI" moment — do the cleaning decision yourself and let the model only format the result.
+
+**AI Use Disclosure prompt:**
+After completing this validation, write a two-sentence AI Use Disclosure:
+> *Sentence 1:* What AI produced in this exercise and how you used it.
+> *Sentence 2:* One specific thing the AI could not determine that required your judgment.
+
+**Series connection:** This exercise trains **Tier 4 metacognitive supervision** — catching fluent-but-wrong output by asking what the clean result concealed. It is the reflex the entire book is built to install: the difference between code that runs and code that is right.
 
 ---
 
@@ -152,3 +323,23 @@ The machine will do the typing. The judgment is yours, and it always was. The re
 [^inversion]: The "90% musician → 90% judgment" inversion is developed in "The Inversion: Why Software Engineers Are Becoming Judgment Workers" (uploaded essay, N. Bear Brown).
 
 [^spx]: Share of S&P 500 companies disclosing AI as a material risk rose from 12% (2023) to 72% (10-K filings through Aug 15 2025), per The Conference Board / ESGAUGE. Fortune, Oct 8 2025: https://fortune.com/2025/10/08/sp-500-companies-disclosed-ai-risk-10-k-forms-reputation-risk/. A December 2025 update put the figure at 83%: https://www.conference-board.org/press/governing-AI-2026
+
+---
+
+## Prompts
+
+### Figure 1.1 — The value split: who can supply the work
+**Files:** images/01-the-fluency-trap-fig-01.svg · d3/01-the-fluency-trap-fig-01.html
+**Prompt:** Two aligned stacked bars on white, the same value split recut by a second question. Render procedural competence as a tall neutral-gray base and judgment as a small cap in the one red accent; align the segment boundary across both bars with a dashed ink rule, zero baseline anchored.
+
+### Figure 1.2 — The Anthropic RCT: comprehension by how the tool was used
+**Files:** images/01-the-fluency-trap-fig-02.svg · d3/01-the-fluency-trap-fig-02.html
+**Prompt:** Three vertical bars on white at zero baseline — hand-coding and AI-plus-interrogation near-level, AI-plus-delegation dropping off a cliff. Keep the high bars in neutral ink-gray and let the convergence read through a faint ochre reference line; reserve red for nothing but the chapter's brand mark.
+
+### Figure 1.3 — AI as material risk: S&P 500 disclosures, 2023–2025
+**Files:** images/01-the-fluency-trap-fig-03.svg · d3/01-the-fluency-trap-fig-03.html
+**Prompt:** A single ascending line across three time points on a zero-anchored percent axis, nodes marked in ink. Draw the line in the one red accent and emphasize the steep first segment where hype becomes liability with a soft ochre slope band, gridlines as faint border hairlines only.
+
+### Figure 1.4 — The 90-day OPT unemployment clock
+**Files:** images/01-the-fluency-trap-fig-04.svg · d3/01-the-fluency-trap-fig-04.html
+**Prompt:** One horizontal authorization bar on white with uniform day ticks, a dashed ink marker at the 80-day working limit and a solid red hard stop at 90 days. The 80-to-90 gap reads as a deliberate safety margin; no calendar or clock imagery, the bar and its two markers carry all the meaning.

@@ -29,6 +29,9 @@ The implication: cognitive struggle is not the price of learning. It is the mech
 
 **The Frictional principle:** The struggle is the point. AI should make the struggle more productive, not eliminate it.
 
+![A process flow of the friction mechanism: a prediction error from encountering material that doesn't fit triggers a neurobiological cascade — dopamine fires, BDNF upregulates, synapses strengthen, dendritic spines form — which consolidates into durable learning. A parallel lower path shows AI removing the friction, which removes the trigger, leaving the artifact intact but the brain unchanged.](images/97-fundamental-themes-fig-03.png)
+*Figure 97.3 — The friction mechanism: struggle triggers learning*
+
 ---
 
 ### 2. Phase Gates: The Explicit Boundary
@@ -52,6 +55,9 @@ In both cases, the gate is at the point where the cognitive work constitutes the
 
 **The phase gate principle:** Specify where AI stops and human work begins. Make the gate explicit. Enforce it. The gate is not where you trust the AI less — it is where the human cognitive work is irreplaceable.
 
+![A systems diagram of the phase gate. On the left, AI handles extraneous-load tasks — formatting, organizing, scaffolding, drafting. A vertical gate marks the boundary. On the right, the human performs germane-load work — synthesis, argument, problem formulation, judgment. The gate sits exactly where the cognitive work constitutes the learning.](images/97-fundamental-themes-fig-02.png)
+*Figure 97.2 — The phase gate: where AI stops and human begins*
+
 ---
 
 ### 3. Humans + AI, Not Humans or AI
@@ -67,6 +73,9 @@ The answer requires a taxonomy — not a vague claim that "some things are irred
 ## The Irreducibly Human Taxonomy
 
 AI has decisively won Tier 1. For everything else, the situation is more complicated — and the complication is precisely what the books in this series teach.
+
+![A vertical tier taxonomy of human cognitive capacities. Tier 1 (pattern and association) is marked as won by machines; Tier 2 (embodied and sensorimotor) is constrained by physics; Tiers 4 and 5 (metacognitive supervision; causal and counterfactual reasoning) are where AI is weak or unreliable; Tiers 6 and 7 (collective and distributed intelligence; existential and wisdom capacities) are where AI is absent. The higher the tier, the more irreducibly human the work.](images/97-fundamental-themes-fig-01.png)
+*Figure 97.1 — The irreducibly human tier taxonomy*
 
 ---
 
@@ -205,6 +214,9 @@ Audit AI outputs for plausibility (Tier 4), formulate the right problem (Tier 4)
 Neither replaces the other. The teacher who uses AI for preparation does more teaching. The student who uses AI for scaffolding learns more deeply. The researcher who uses AI for literature navigation does more original research. The engineer who uses AI for estimation — after doing the identification layer herself — produces more defensible conclusions. The human cognitive work is not diminished; it is clarified, amplified, and freed from the Tier 1 work that was occupying it.
 
 **The phase gate follows from the taxonomy:** The gate is at the boundary between what AI can do (Tier 1) and what requires human cognition (Tiers 4–7). AI stops at the gate not because it is distrusted but because the cognitive work on the other side of the gate is the work that produces the human capability that makes AI safe to use.
+
+![A two-column division of labor. The "AI does AI things" column lists Tier 1 work — generate structure, retrieve information, adjust complexity, produce feedback, execute estimation, format and organize. The "humans do human things" column lists Tiers 4–7 work — plausibility audit, problem formulation, the identification layer, productive disagreement, institutional judgment, knowing what question is worth asking, accountability. Neither column replaces the other.](images/97-fundamental-themes-fig-04.png)
+*Figure 97.4 — The division of labor*
 
 ---
 
@@ -493,3 +505,23 @@ The framework described in this document is deployed across a connected set of p
 | **Nik Bear Brown** | Author website — the connecting node across all projects | [nikbearbrown.com](https://nikbearbrown.com) |
 
 The argument is one. The applications are many. The tools will change. The taxonomy will evolve at the margins. The neurobiological mechanism of learning — and the structural incapacity of AI at Tiers 4 through 7 — will not.
+
+---
+
+## Prompts
+
+### Figure 97.1 — The irreducibly human tier taxonomy
+**Files:** images/97-fundamental-themes-fig-01.svg
+**Prompt:** Brutalist vertical tier ladder on white: Tier 1 (machines win) at the base through Tiers 4–7 (AI weak, unreliable, absent) at the top, each rung labeled with its cognitive capacity and AI's standing. Higher rungs accented toward red to mark the irreducibly human work; lower rungs gray. EB Garamond labels, no shadows or gradients.
+
+### Figure 97.2 — The phase gate: where AI stops and human begins
+**Files:** images/97-fundamental-themes-fig-02.svg
+**Prompt:** Brutalist systems diagram on white split by one vertical gate line: the left side lists AI-handled extraneous-load tasks, the right side lists human germane-load work, with the gate placed where the cognitive work constitutes the learning. One red accent on the gate, ink text, single-headed arrows, no decoration.
+
+### Figure 97.3 — The friction mechanism: struggle triggers learning
+**Files:** images/97-fundamental-themes-fig-03.svg
+**Prompt:** Brutalist process flowchart on white: a prediction error triggers a neurobiological cascade (dopamine, BDNF, synapses, dendritic spines) that consolidates into durable learning, with a parallel lower path showing AI removing the friction and leaving the brain unchanged. Red accent on the learning path, gray on the bypass path, single-headed arrows, no gradients.
+
+### Figure 97.4 — The division of labor
+**Files:** images/97-fundamental-themes-fig-04.svg
+**Prompt:** Brutalist two-column comparison on white: "AI does AI things" (Tier 1 list) beside "humans do human things" (Tiers 4–7 list), drawn as equals that do not replace each other. One red accent on the human column, ink text, no shadows or gradients.

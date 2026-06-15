@@ -21,6 +21,9 @@ The answer has to do with what feedback looks like in a broken system. Volume pr
 
 What we are actually doing is optimizing for throughput in a channel that has been quietly devalued by the very automation we learned to use.
 
+![Three vertical bars on a zero baseline — cold application near 0.2 percent reads as a thin sliver beside employee referral at 2 to 4 percent and direct network introduction at 5 to 10 percent, preserving the order-of-magnitude gap.](images/02-the-reallocation-principle-fig-01.png)
+*Figure 2.1 — Conversion rate by channel*
+
 <!-- → [CHART: bar chart comparing conversion rates across three channels — cold application (~0.2%), employee referral (~2–4%), direct network introduction (~5–10%) — student should see the order-of-magnitude gap between channels, not just the absolute numbers] -->
 
 ---
@@ -34,6 +37,9 @@ This is not a motivational observation. It is a resource-allocation problem. And
 The expected return on an hour is not constant across activities. An hour of targeted networking reaches into the 54% channel. An hour building a portfolio piece creates verifiable evidence of capability — and in 2025, workers with validated AI skills were commanding something like a 56% wage premium over peers who only claimed equivalent skills.[^premium] An hour of cold applying, by contrast, feeds a machine that discounts most of what you send it before a human reads a word.
 
 Once you see the return structure, the reallocation is obvious. Two hours applying — targeted, filtered, not sprayed. Three hours networking. Three hours on portfolio. I call this the 3-3-2 day, and the rest of this book is built to make it actually achievable rather than just strategically correct.
+
+![Three proportional columns on a common baseline — a short two-hour applying column beside two taller three-hour columns for networking and portfolio, with the networking column tied to the 54 percent hire-via-connections figure and the portfolio column to the 56 percent validated-skill premium.](images/02-the-reallocation-principle-fig-02.png)
+*Figure 2.2 — The 3-3-2 day*
 
 <!-- → [INFOGRAPHIC: three-column layout showing the 3-3-2 split — "2 hrs: Targeted Applying," "3 hrs: Networking," "3 hrs: Portfolio" — with the 54% and 56% figures anchored to the networking and portfolio columns respectively] -->
 
@@ -59,7 +65,20 @@ Fewer applications. More movement.
 
 The mechanism is not magic. The referrals work because they bypass the parser. The portfolio piece works because it converts a claim into evidence. The targeted applications work because they are aimed at companies that can actually act on them.
 
-<!-- → [TABLE: side-by-side comparison of spray-and-pray week vs. 3-3-2 week — rows: hours spent, applications sent, recruiter screens, referrals generated, portfolio pieces completed, estimated pipeline value; student should see the input-output ratio flip] -->
+| Measure | Spray-and-pray week | 3-3-2 week |
+|---|---|---|
+| Hours spent | 40 | 35 |
+| Applications sent | ~200 | ~25 |
+| Recruiter screens | 1 | (rolling from referrals) |
+| Referrals generated | 0 | 2 |
+| Informational conversations | 0 | 4 |
+| Portfolio pieces completed | 0 | 1 |
+| Estimated pipeline value | Low — most applications dead on arrival | High — two warm referrals into the 54% channel |
+
+*Table 2.1 — The same week, two strategies: fewer applications, more movement. The left column wins only on raw volume; the right column wins on every outcome that matters.*
+
+![Two job-search weeks compared row by row with paired horizontal bars — the spray-and-pray week wins only on raw application count, while the 3-3-2 week wins on recruiter screens, referrals, and portfolio pieces.](images/02-the-reallocation-principle-fig-03.png)
+*Figure 2.3 — Spray-and-pray vs. 3-3-2: the input-output flip*
 
 ---
 
@@ -70,6 +89,9 @@ A scorer — any algorithm — can tell you a role appears low-value and should 
 The reallocation principle is a default for where returns *usually* lie. The person operating it is the one who holds private information the model cannot access. Override the default when you have a reason. Follow it when you don't.
 
 This matters because there is a failure mode on both ends. The applicant who ignores the principle and keeps spraying is the one we started with — disciplined, misallocated, watching the counter go up. But the applicant who treats 3-3-2 as a ritual and never deviates is making a different mistake: substituting a heuristic for judgment. The whole argument of this book is that judgment is what you bring, and the tools are what handle the parts that do not require it.
+
+![A top-to-bottom decision tree for a freed hour — first gate routes to networking if fewer than about ten live conversations are going, second gate routes to portfolio if no deployed metric-bearing project exists from the last ninety days, and only when both are healthy does the hour go to additional targeted applications.](images/02-the-reallocation-principle-fig-04.png)
+*Figure 2.4 — Where does a freed hour go?*
 
 <!-- → [DIAGRAM: decision tree for "where does a freed hour go?" — branch: fewer than ~10 live conversations → send to networking; portfolio has no deployed metric-bearing project from last 90 days → send to portfolio; both healthy → additional targeted applications; student should see this as a rule, not a preference] -->
 
@@ -103,30 +125,205 @@ What you do not yet have is a filter trustworthy enough to actually skip on. Tha
 
 ---
 
-## Exercises
+## Chapter 2 Exercises: The Reallocation Principle
 
-**Warm-up**
+**Project:** Your Own Reallocation Engine
 
-1. *(Recall — tests the return-structure argument)* In your own words, explain why cold applications convert at a lower rate than referrals — not just that they do, but what structural feature of the hiring process produces that gap. One paragraph.
+**This chapter adds:** the operating policy your engine enforces — a 3-3-2 time budget, an initial target list filtered by expected return, and the skip logged as a first-class action. This is the decision layer the later data pipelines will feed.
 
-2. *(Recall — tests the 3-3-2 allocation)* A colleague tells you they have been applying for three months without an offer and asks whether they should "apply harder." What is the first question you ask them, and what data point from this chapter supports why you ask it?
+---
 
-3. *(Recall — tests the skip concept)* Define a "skip" as used in this chapter. Why is calling it a failure the wrong frame?
+### Exercise 1 — When to Use AI
 
-**Application**
+**The judgment:** In this chapter's work, AI assistance is appropriate for the following tasks:
 
-4. *(Apply — tests personal allocation)* Draft your 3-3-2 plan for one workday. Name the exact two-hour applying window, your three networking actions, and the portfolio piece you are building this week. A plan without specific hours on it is a wish, not a plan.
+- **Drafting outreach and informational-interview messages for the networking block.** — *Why AI works here:* this is drafting against a template you can read and personalize; you judge fit, the model handles the first pass.
+- **Reformatting your week's logged hours into an apply/network/portfolio tally.** — *Why AI works here:* this is summarizing structured data you supply — pure reformatting, instantly checkable against your own log.
+- **Generating candidate target companies in a sector, as a starting list to verify.** — *Why AI works here:* the model proposes; you treat the list as leads, not facts, and every name gets checked in later chapters before it earns an application.
 
-5. *(Apply — tests the decision rule)* You have just decided not to apply to a role that scored poorly on the filter. Where does the freed hour go? Walk through the decision rule step by step, applied to your actual current situation.
+**The tell:** You know you are using AI appropriately when you can evaluate the output — when you have independent criteria to judge whether it is correct, complete, and fit for purpose. Here: does the message sound like you, and is every suggested company something you will verify before applying?
 
-6. *(Apply — tests gap diagnosis)* Tally last week's hours across apply / network / portfolio. Identify which channel is starved. Name one concrete action that moves you toward 3-3-2 this week.
+---
 
-**Synthesis**
+### Exercise 2 — When NOT to Use AI
 
-7. *(Synthesis — tests override judgment)* Describe a specific scenario in which you would rationally override the 3-3-2 default and tilt heavily toward the applying channel. What information would you need to hold, and what would make that override correct rather than just an expression of the volume instinct?
+**The judgment:** In this chapter's work, the following tasks require human judgment. Delegating them to AI is not appropriate — not because AI cannot produce output, but because AI output in these cases cannot be trusted without verification that requires the same expertise as doing the task yourself.
 
-8. *(Synthesis — tests the full argument)* A recruiter tells you that the applicants who get the most responses are the ones who apply most consistently every day. Steelman their claim, then explain where it breaks down given the data in this chapter.
+- **Deciding your actual time allocation given your deadline and network.** — *Why AI fails here:* this is a stakes-weighted resource decision; the model cannot know your unemployment-day count, your live conversations, or your risk tolerance, so any split it recommends is a guess dressed as advice.
+- **Deciding whether to override the 3-3-2 default in a specific case.** — *Why AI fails here:* overrides exist precisely because *you* hold private information the model cannot access — the hiring manager who is your professor's co-founder, the mission you can speak to with conviction.
+- **Accepting an AI list of "best companies to apply to" as a reason to apply.** — *Why AI fails here:* it has no sponsorship history, no ghost-job check, no live-posting signal; trusting it reintroduces the volume instinct the chapter warns against.
 
-**Challenge**
+**The tell:** You know you have crossed the line when you are using AI output as your reason for a conclusion rather than as a tool for reaching one. If you could not explain the conclusion without the AI, the AI did the work that should have been yours.
 
-9. *(Challenge — tests structural limits)* The 3-3-2 day assumes you have a network to activate. Design a modified allocation for the first two weeks of a search when your relevant professional network is genuinely near-zero. What changes, what stays the same, and how do you know when to switch to the standard 3-3-2?
+**Series connection:** This exercise trains **Tier 7 (Wisdom — values and accountability)**, with a Tier 4 edge. Where to spend a scarce hour against a federal deadline is a judgment about your own stakes; no scorer can own that decision, because no scorer bears its consequences.
+
+---
+
+### Exercise 3 — LLM Exercise
+
+**What you're building this chapter:** your concrete 3-3-2 plan and a first target list — the policy document and candidate set your engine will run against from here forward.
+
+**Tool:** Claude (claude.ai chat). Use a Claude Project if you want the plan to persist as context for later chapters.
+
+**The Prompt:**
+
+```
+Help me build a job-search time-allocation plan based on the "3-3-2" principle:
+spend effort where the expected return is, not where the feedback is. The
+return structure I'm working from: roughly 54% of hires come through personal
+connections; cold applications convert near 0.2% while referrals convert far
+higher; most application time is wasted on ghost jobs and auto-rejection. So the
+default day is ~2 hours targeted applying, ~3 hours networking, ~3 hours
+portfolio.
+
+Do three things. Where you need a fact about me you don't have, use a clearly
+marked [FILL IN] placeholder — do not invent my schedule, network size, or
+target sector.
+
+1. Draft a one-day 3-3-2 plan with NAMED time blocks (actual clock hours),
+   three specific networking actions, and one portfolio piece in progress.
+2. Write the "freed-hour rule": when I skip a low-value role, where does the
+   reclaimed time go? Encode this as an explicit if/then I can follow without
+   re-deciding each time (hint: networking if I have fewer than ~10 live
+   conversations; portfolio if no deployed metric-bearing project in 90 days;
+   only then more targeted applications).
+3. Give me a target-list TEMPLATE (as a markdown table) with columns for
+   company, why-it's-a-lead, and a blank column for each verification I'll add
+   in later chapters: sponsorship history, funding recency, posting liveness,
+   role quality. Pre-fill 5 example rows in my [FILL IN] sector as leads only,
+   clearly marked "unverified."
+
+Output as clean markdown. No motivational filler.
+```
+
+**What this produces:** a `332-plan.md` with a dated plan and an explicit freed-hour rule, and a `targets.md` table seeded with unverified leads and empty verification columns — the spine your later pipelines populate.
+
+**How to adapt this prompt:**
+- *For your own project:* replace every `[FILL IN]` with your real sector, hours, and network state. Keep the "leads only, unverified" labeling — it stops you treating the model's list as a result.
+- *For ChatGPT / Gemini:* works as-is; on both, add "use a real markdown table, not a bulleted list" to keep the target template machine-usable.
+- *For a Claude Project:* store the freed-hour rule in the project instructions so future chats enforce it automatically.
+
+**Connection to previous chapters:** the target table's "why-it's-a-lead" column is where you apply Chapter 1's interrogation reflex — every lead is a fluent suggestion until verified.
+
+**Preview of next chapter:** Chapter 3 makes "verified" mean something specific — you'll fork the engine and run the contract that decides which of these leads survive.
+
+---
+
+### Exercise 4 — CLI Exercise
+
+**What you're building this chapter:** a machine-readable target list and a simple skip log in your project repo, so decisions are recorded rather than remembered.
+
+**Tool:** Cowork (or Claude Code). The task reads your plan and writes structured files across the project directory — a file-organization job that suits Cowork's workspace handling.
+
+**Skill level:** Beginner — file creation and a small reformat; no data pipelines yet.
+
+**Setup:**
+
+Before running this exercise, confirm:
+- [ ] The project repo from Chapter 1 exists (with `data/`, `notes/`, `recipes/`).
+- [ ] You have the `targets.md` table and `332-plan.md` from Exercise 3.
+- [ ] You have decided your skip-rate target (the book argues for ≥50%).
+
+**The Task:**
+
+```
+In my project repo, turn my planning notes into tracked files. Do not invent any
+company data — only restructure what I provide.
+
+1. Read notes/targets.md (my unverified leads table).
+2. Create data/targets.csv with these columns: company, source_of_lead,
+   sponsorship_status, funding_recency, posting_live, role_quality, decision.
+   Fill company and source_of_lead from my notes; leave every verification
+   column and decision blank (later chapters fill them).
+3. Create reports/SKIP_LOG.md with a dated-entry template: company, date,
+   reason for skip, where the freed hour went. Add one header line stating my
+   skip-rate target.
+4. Print targets.csv and the SKIP_LOG template so I can confirm the columns.
+
+Do not apply to anything, do not contact anyone, do not fill verification
+columns with guesses. Stop after step 4.
+```
+
+**Expected output:** `data/targets.csv` with named leads and empty verification columns, plus `reports/SKIP_LOG.md` ready to record decisions.
+
+**What to inspect in the output:** open `targets.csv` — are the verification columns genuinely blank (not auto-filled with the model's guesses)? A pre-filled "sponsorship_status: likely" is exactly the contract violation Chapter 3 forbids.
+
+**If it goes wrong:** the most likely failure is the agent helpfully "completing" the verification columns from its training data. Recover by instructing it to blank every column except company and source, and re-print; treat any auto-filled value as untrusted.
+
+**CLAUDE.md / AGENTS.md note:** add a standing rule — *"`targets.csv` verification columns may only be filled by a script that reads a public record and writes an audit; never by model inference."* This pre-commits your repo to the verified-data contract before you even build the pipelines.
+
+---
+
+### Exercise 5 — AI Validation Exercise
+
+**What you're validating:** an AI-generated job-search strategy recommendation — the kind that sounds disciplined and quietly optimizes the wrong variable.
+
+**Validation type:** Reasoning chain.
+
+**Risk level:** Medium — wrong strategy here doesn't crash anything; it just burns days you can't get back on a federal clock.
+
+**Setup (pre-generated artifact — option b):** This chapter's lesson is that the volume instinct hides inside reasonable-sounding advice, so validate this pre-generated recommendation:
+
+> **Your job-search plan.** To maximize your chances, apply to as many roles as
+> possible — aim for 25–30 applications per day across all major job boards.
+> Consistency is what gets results: candidates who apply daily get the most
+> responses. Use AI to auto-fill applications and generate tailored cover
+> letters at scale so volume doesn't cost you quality. Networking is helpful but
+> slow, so treat it as a secondary activity once your application numbers are up.
+> With 500+ applications a month, the law of large numbers is on your side.
+
+**The Validation Task:**
+
+Evaluate the AI output above using the following checklist. For each item, record: Pass / Fail / Cannot determine — and explain your reasoning.
+
+```
+Validation Checklist — The Reallocation Principle
+
+□ Correctness: Does the advice optimize for return or for feedback?
+  Does "apply to as many as possible" target the channel that produces >half of
+  hires, or the lowest-converting one?
+□ Completeness: What does it ignore?
+  Where are ghost jobs, AI auto-rejection, and sponsorship history in this plan?
+□ Scope: Did it answer "how do I get hired" or "how do I feel busy"?
+  Is "the counter going up" being mistaken for progress?
+□ Channel allocation (chapter-specific): Does relegating networking to
+  "secondary" match the 54% / 0.2% numbers, or contradict them?
+□ Stakes handling (chapter-specific): For someone on a 90-day unemployment
+  clock, is 500 cold applications/month a defensible use of scarce time?
+□ Failure mode check: Does this output exhibit any of the following?
+  - Fluent but wrong (disciplined-sounding advice that targets the wrong metric)
+  - Volume instinct (mistaking legible activity for expected return)
+  - Missing ground truth (no base rate for how often cold applications convert)
+```
+
+**What to do with your findings:**
+- If the output passes all checks: follow it. (It will not — it inverts the chapter's central argument.)
+- If the output fails one check: rewrite it yourself as a 3-3-2 plan and note exactly which claim you rejected and why.
+- If the output fails multiple checks or you cannot determine pass/fail: this is a "When NOT to Use AI" moment — allocation is your call, made from your stakes.
+
+**AI Use Disclosure prompt:**
+After completing this validation, write a two-sentence AI Use Disclosure:
+> *Sentence 1:* What AI produced in this exercise and how you used it.
+> *Sentence 2:* One specific thing the AI could not determine that required your judgment.
+
+**Series connection:** This exercise trains **Tier 7 wisdom** — the judgment to reject confident advice that ignores your stakes and the real return structure. It is the difference between an engine that allocates effort and a counter that just goes up.
+
+---
+
+## Prompts
+
+### Figure 2.1 — Conversion rate by channel
+**Files:** images/02-the-reallocation-principle-fig-01.svg · d3/02-the-reallocation-principle-fig-01.html
+**Prompt:** Three vertical bars on white at a zero baseline, scaled so the order-of-magnitude gap reads honestly — cold application a near-flat sliver beside referral and direct introduction. Render the devalued cold-application bar in the one red accent and keep referral and direct introduction in neutral ink-gray so the eye lands on what the chapter devalues.
+
+### Figure 2.2 — The 3-3-2 day
+**Files:** images/02-the-reallocation-principle-fig-02.svg · d3/02-the-reallocation-principle-fig-02.html
+**Prompt:** Three proportional columns on a common baseline sized strictly two-three-three for applying, networking, and portfolio. Keep the columns in neutral grays with a single red accent marking the networking column as the high-return channel; the shortest applying column should read as deliberate, not deficient.
+
+### Figure 2.3 — Spray-and-pray vs. 3-3-2: the input-output flip
+**Files:** images/02-the-reallocation-principle-fig-03.svg · d3/02-the-reallocation-principle-fig-03.html
+**Prompt:** Two columns of paired horizontal bars on white across six shared outcome rows, one color per week held consistent down the page. Let the spray-and-pray week win only on raw application count in neutral gray and the 3-3-2 week win every outcome row that matters in the one red accent.
+
+### Figure 2.4 — Where does a freed hour go?
+**Files:** images/02-the-reallocation-principle-fig-04.svg · d3/02-the-reallocation-principle-fig-04.html
+**Prompt:** A top-to-bottom decision tree on white with two diamond gates and three terminal action nodes, single-direction ink arrows throughout. Route networking and portfolio off the early gates in neutral tones and make the additional-applications terminal visually subordinate, reached last after both gates, with a single red accent on the active path.

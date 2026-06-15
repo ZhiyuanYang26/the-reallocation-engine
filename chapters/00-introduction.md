@@ -39,6 +39,7 @@ Snickerdoodle is treated lightly here — named, leaned on, but not fully unpack
 When you `ls` the repository, here is what each part is for:
 
 - **`chapters/`** — the manuscript. This is the book. Start at `01-the-fluency-trap.md`.
+- **`_MANIFEST.md`** — read this first. The portable map of what is canonical, what is task-relevant, and what to ignore (a thin index over the files below; its machine-readable twin is `.ai/manifest.yaml`).
 - **`SNICKERDOODLE.md`** — the constitution. The rules above, in full. Read it first if you intend to run anything.
 - **`DOMAIN.md`** — the index. What this repository's data and scripts are, and *what is runnable today* versus what is still planned.
 - **`scripts/`** — the maintained automation (SEC funding, sponsorship, ATS liveness, BLS/O\*NET role quality, résumé rendering, the role scorer).
@@ -46,7 +47,7 @@ When you `ls` the repository, here is what each part is for:
 - **`data/`** — the verified source data; audits sit beside the data they inspect. Private job-search state lives in `data/ats/` and is reviewed before commit.
 - **`logs/RUN_LOG.md`** — the ground-truth history of what has actually been run.
 
-Two files tell you what the project *is* (`DOMAIN.md`) and what governs it (`SNICKERDOODLE.md`); one file tells you what has *happened* (`logs/RUN_LOG.md`); `status.md` tells you where things stand right now. Between them you can orient in a couple of minutes without reading the whole tree.
+`_MANIFEST.md` is the read-first map; from there, two files tell you what the project *is* (`DOMAIN.md`) and what governs it (`SNICKERDOODLE.md`); one file tells you what has *happened* (`logs/RUN_LOG.md`); `status.md` tells you where things stand right now. Between them you can orient in a couple of minutes without reading the whole tree.
 
 ## How the book is organized
 
@@ -60,7 +61,7 @@ Two files tell you what the project *is* (`DOMAIN.md`) and what governs it (`SNI
 
 You do not have to read the book front to back before touching the machine. In fact, the fastest way to understand the argument is to watch the engine make one decision and trace it. With the repository open in a terminal:
 
-1. **Read the two orientation files.** Open `SNICKERDOODLE.md` (the rules), then `DOMAIN.md` (what is runnable today). Five minutes. You now know what governs the engine and what actually works.
+1. **Read the orientation files.** Open `_MANIFEST.md` (the read-first map), then `SNICKERDOODLE.md` (the rules) and `DOMAIN.md` (what is runnable today). Five minutes. You now know what to read, what governs the engine, and what actually works.
 2. **Check the environment.** Run `npm run doctor`. It reports what tools are installed and which commands have real scripts behind them — an honest map of the runnable surface.
 3. **Run the decision core and trace it.** Run `npm run score data/examples/ch11-roles.json`, then open the audit it writes to `data/examples/role-scores.md`. Pick one row and read it term by term: sponsorship, fit, liveness, timeline — each labeled *record*, *model-judgment*, or *your-input*. If you cannot explain a recommendation from its sources, the book argues, distrust the recommendation before you distrust your confusion.
 4. **Read Chapter 1.** Now open `chapters/01-the-fluency-trap.md`. The idea you just watched the scorer enforce — that a confident output is not a correct one — is the idea the whole engine exists to defend.

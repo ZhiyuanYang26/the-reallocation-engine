@@ -9,6 +9,9 @@ The Department of Labor publishes every Labor Condition Application a U.S. emplo
 
 The whole architecture of this book is built on that distinction. One answer is fluent. The other is *true*. The discipline required to build on the second, and only the second, is what I mean by the verified-data contract.
 
+![Two columns: on the left, a model's fluent prose answer floating with no source anchor; on the right, a verified answer — filing count, approval rate, year — tied by solid connectors down to two labeled record sources, the Department of Labor and USCIS.](images/03-the-verified-data-contract-fig-01.png)
+*Figure 3.1 — Same question, two kinds of answer*
+
 <!-- → [INFOGRAPHIC: Two-column side-by-side: left column labeled "Model's answer" shows the fluent prose sentence with no source; right column labeled "Verified answer" shows the LCA count, approval rate, and year, traced to DOL and USCIS records. Caption: "Same question. One answer is plausible. One is checkable."] -->
 
 ## Why the contract is a single rule, not a set of guidelines
@@ -22,6 +25,9 @@ That is it. One rule. The simplicity is intentional. Complex rules are negotiate
 ## What the system actually measures, and where it lives
 
 The verified-data contract is not a philosophy statement. It is enforced by the architecture. There are three subsystems that produce the numbers this book is built on, and each of them writes to auditable records you can read and question.
+
+![A systems diagram: three source pipelines — funding, postings and liveness, role quality — each producing its own audit output, with all three audits converging into a single run log; small self-loops on each source mark a local-verified-data-first cache check.](images/03-the-verified-data-contract-fig-02.png)
+*Figure 3.2 — Three pipelines, three audits, one log*
 
 <!-- → [DIAGRAM: Three boxes labeled scripts/sec/ (funding), scripts/ats/ (postings and liveness), scripts/bls/ (role quality), each with an arrow pointing to a corresponding *-audit.md output, all feeding into RUN_LOG.md. Caption: "The three pipelines and where their output lives — every number traces back through this graph."] -->
 
@@ -49,7 +55,13 @@ npm run ats:verify
 
 This calls `scripts/ats/verify-pipeline.mjs`, which checks the tracker and scan data for internal consistency and prints what it found. The output is the audit. I want you to run this not because you need the result yet, but because there is a specific feeling I want you to have: the difference between being told the data is fine and *seeing the check pass*. One of those is someone's word. The other is evidence. The contract is the decision to require the second.
 
-<!-- → [TABLE: Three columns — Pipeline, What it verifies, What the audit reports. Rows: ats:verify / tracker-scan consistency / row counts, coverage, drop reasons; sec:verify / filing-record completeness / companies matched, date range, gaps; bls:verify / role-quality data freshness / series IDs, last update, missing occupations. Caption: "The three verification commands and what each audit tells you."] -->
+| Pipeline | What it verifies | What the audit reports |
+|---|---|---|
+| `ats:verify` | Tracker and scan-data consistency | Row counts, coverage, drop reasons |
+| `sec:verify` | Filing-record completeness | Companies matched, date range, gaps |
+| `bls:verify` | Role-quality data freshness | Series IDs, last update, missing occupations |
+
+*Table 3.1 — The three verification commands and what each audit tells you.*
 
 ## The seam where fluency sneaks back in
 
@@ -61,6 +73,9 @@ The discipline required is to watch the seam between the data and the reading of
 
 For any sentence in a system output, one question settles it: could this sentence have been produced by counting records? If yes, it must trace to a script output or an audit report. If it cannot be traced, it is not allowed to stand. If no — if it is a reading, a framing, a suggestion — it is model judgment, and it is allowed, but it must be visible as such.
 
+![A decision tree: one question — could this sentence have been produced by counting records? — splits into a data-claim branch that must trace to a script output or audit and a model-judgment branch that is allowed but must be labeled, with both branches reconverging on a final check that the label is visible in the output.](images/03-the-verified-data-contract-fig-03.png)
+*Figure 3.3 — The one-question test for every sentence*
+
 <!-- → [INFOGRAPHIC: Decision tree — "Could this sentence have been produced by counting records?" Yes branch leads to "Data claim: must trace to script output or audit." No branch leads to "Model judgment: allowed, but must be labeled." Both branches end at "Is the label visible in the output?" Caption: "The one-question test for every sentence in a mixed output."] -->
 
 ## What the data can't tell you
@@ -71,7 +86,17 @@ The data knows a company filed fifteen LCAs. It does not know that all fifteen w
 
 The contract stops you from building on fiction. It does not give you omniscience. What it gives you is a floor: you know the numbers you have are real, and you know where the gaps are, because the audit reported them instead of hiding them. A 94%-accurate system can still harm someone systematically if no one asks what it failed to measure. The contract makes you the person who asks that question — not the model, not the system, you. The gaps it reports are your honest starting debt: claims you currently cannot source, labeled as such, waiting for better data.
 
-<!-- → [TABLE: Two columns — What the contract guarantees / What the contract cannot guarantee. Rows include: counts and rates are real / that the right things were measured; gaps are labeled not hidden / that coverage is complete; decisions trace to auditable records / that the records captured the full picture; model judgments are labeled / that those judgments are correct. Caption: "The floor the contract provides and the ceiling it doesn't claim to reach."] -->
+| What the contract guarantees | What the contract cannot guarantee |
+|---|---|
+| Counts and rates are real | That the right things were measured |
+| Gaps are labeled, not hidden | That coverage is complete |
+| Decisions trace to auditable records | That the records captured the full picture |
+| Model judgments are labeled | That those judgments are correct |
+
+*Table 3.2 — The floor the contract provides and the ceiling it doesn't claim to reach.*
+
+![A two-column matrix pairing each guarantee with its matching limit — counts are real versus the right thing was measured, gaps are labeled versus coverage is complete, decisions trace to records versus the records captured the full picture, judgments are labeled versus those judgments are correct — a wall of solid assurances facing a wall of honest caveats.](images/03-the-verified-data-contract-fig-04.png)
+*Figure 3.4 — The floor and the ceiling: guarantees vs. limits*
 
 ## The shape of everything that follows
 
@@ -85,39 +110,203 @@ The one question I haven't fully answered yet: of all the companies in the world
 
 ---
 
-## Exercises
+## Chapter 3 Exercises: The Verified-Data Contract
 
-**Warm-up**
+**Project:** Your Own Reallocation Engine
 
-1. *(Recall, easy)* State the prime directive in your own words — not the exact phrasing, but the principle it enforces. What two-step sequence does it require before any model prompt, and what does each step accomplish?
-   *Tests whether you can articulate the contract without reciting it verbatim.*
+**This chapter adds:** the floor your engine stands on — you fork the repo, run your first verification, write your first `RUN_LOG.md` entry, and harden the `CLAUDE.md` rule from Chapter 1 into the full one-rule contract: run the script and read the audit before you prompt; never invent a count.
 
-2. *(Identify, easy)* Name the three script subsystems in this chapter and the source of truth each one draws from. What does each pipeline write as its output?
-   *Tests whether you've mapped the architecture to its actual data sources.*
+---
 
-3. *(Recall, easy)* What is `RUN_LOG.md` for, and why does the system require it rather than just trusting that you remember what you ran?
-   *Tests the reasoning behind the audit trail, not just its existence.*
+### Exercise 1 — When to Use AI
 
-**Application**
+**The judgment:** In this chapter's work, AI assistance is appropriate for the following tasks:
 
-4. *(Apply, moderate)* Run `npm run ats:verify`. Read the output. Write a `RUN_LOG.md` entry covering: what you ran, what the audit reported, and one thing the output told you that you would otherwise have assumed without evidence.
-   *Tests the transition from knowing the contract to executing it.*
+- **Summarizing what a verification audit reported, in plain language.** — *Why AI works here:* the audit is the ground truth; the model is reformatting numbers you can read for yourself — a checkable summary, not a source.
+- **Drafting a `RUN_LOG.md` entry from the command you ran and the output you paste in.** — *Why AI works here:* this is structured reformatting of facts you supply; the log's accuracy is verifiable against the terminal output.
+- **Explaining what a given script does by reading its README with you.** — *Why AI works here:* comprehension support you verify by running the script — the interrogation mode, not delegation.
 
-5. *(Analyze, moderate)* Take this sentence: "This well-funded Series B startup probably sponsors visas and would be a strong culture fit for someone with your background." Break it into its data claims and its model judgments. Label each. For each data claim, name the source it would need to trace to. For each model judgment, note whether it is labeled as judgment in the original sentence.
-   *Tests the data-claim vs. model-judgment distinction on a realistic example.*
+**The tell:** You know you are using AI appropriately when you can evaluate the output — when you have independent criteria to judge whether it is correct, complete, and fit for purpose. Here the criterion is the audit file itself: every claim the model makes must be checkable against it.
 
-6. *(Apply, moderate)* Name one company you believe sponsors H-1B visas that might not appear in the public LCA/USCIS data — and explain why (recent acquisition, name-matching failure, filing timing, role type). Write one sentence describing how you would label that gap in an output rather than guessing past it.
-   *Tests coverage-gap reasoning: what to do when the contract can't give you the answer.*
+---
 
-**Synthesis**
+### Exercise 2 — When NOT to Use AI
 
-7. *(Synthesize, harder)* A colleague proposes adding a fourth data source to the system: LinkedIn profile counts per company as a proxy for growth. Walk through the contract requirements this would need to satisfy before the system could treat those counts as verified data rather than model-estimated data. What would the script, the audit, and the run-log entry each need to contain?
-   *Tests whether you can apply the contract's architecture to a novel source.*
+**The judgment:** In this chapter's work, the following tasks require human judgment. Delegating them to AI is not appropriate — not because AI cannot produce output, but because AI output in these cases cannot be trusted without verification that requires the same expertise as doing the task yourself.
 
-8. *(Synthesize, harder)* Consider the seam problem described in the chapter — verified numbers re-entering interpretation as unsourced estimates. Design a simple output-formatting convention (a label, a section header, a field name — your choice) that would make the data-claim / model-judgment boundary visible to someone reading a system output who hasn't read this chapter. Justify your design choice.
-   *Tests whether you can operationalize the distinction, not just state it.*
+- **Producing any count, rate, or coverage number.** — *Why AI fails here:* this is the prime directive — a model asked "how many LCAs did this firm file?" returns a plausible number, not a counted one; that is fabrication, the exact failure the contract exists to stop.
+- **Deciding whether a sentence in an output is a data claim or a model judgment.** — *Why AI fails here:* the model that wrote the fluent interpretation is the worst-placed to flag it; the seam where an estimate re-enters as fact is yours to police.
+- **Judging whether a labeled coverage gap is acceptable for a given decision.** — *Why AI fails here:* whether a missing visa category matters depends on your situation — a stakes judgment the model cannot make.
 
-**Challenge**
+**The tell:** You know you have crossed the line when you are using AI output as your reason for a conclusion rather than as a tool for reaching one. If you could not explain the conclusion without the AI, the AI did the work that should have been yours.
 
-9. *(Evaluate, open-ended)* The chapter states that a 94%-accurate system can still harm someone systematically if no one asks what it failed to measure. Construct one realistic failure scenario in the job-search context — a specific type of company, candidate, or role — where the verified-data contract would pass all three of its checks (real counts, labeled gaps, audited runs) and still produce a systematically misleading result. What would a fifth check look like that catches this failure?
-   *Tests whether you can find the limits of the contract itself, not just apply it correctly.*
+**Series connection:** This exercise trains **Tier 4 (Metacognitive supervision)** — the discipline of watching the seam between counted fact and fluent estimate, and refusing to let the second wear the costume of the first.
+
+---
+
+### Exercise 3 — LLM Exercise
+
+**What you're building this chapter:** a clean separation, for one real audit output, of what is a data claim (must trace to a record) and what is model judgment (allowed, but labeled) — the reading discipline every later score depends on.
+
+**Tool:** Claude (claude.ai chat). Chat is the right fit; you paste a real audit and interrogate it.
+
+**The Prompt:**
+
+```
+I am enforcing a verified-data contract: any sentence that could have been
+produced by counting records must trace to a script output or audit; any
+sentence that is interpretation must be labeled as model judgment, never dressed
+as a counted fact. You must NOT invent any number — if a number isn't in what I
+paste, you do not have it.
+
+Below is the output of a verification command from my job-search engine. Do four
+things:
+
+1. List every DATA CLAIM in the output (counts, rates, coverage, dates) and, for
+   each, name the source it should trace to (which script or audit).
+2. List every MODEL JUDGMENT or interpretation, and rewrite each so it is
+   explicitly labeled as judgment (e.g. "Interpretation, not counted: ...").
+3. Apply the one-question test to one borderline sentence: "Could this have been
+   produced by counting records?" Show your reasoning for yes or no.
+4. Draft a RUN_LOG.md entry: what I ran, what the audit reported, and one thing
+   the output told me I would otherwise have assumed.
+
+If any step needs a number not present below, say "not in the provided output"
+instead of estimating.
+
+--- PASTE YOUR AUDIT OUTPUT BELOW ---
+[paste the printed output of your verify command here]
+```
+
+**What this produces:** a labeled breakdown of your own audit into data claims vs. judgments, plus a ready `RUN_LOG.md` entry — the habit that keeps fluency from sneaking back in at the reading layer.
+
+**How to adapt this prompt:**
+- *For your own project:* paste the real terminal output of whatever verify command you ran. The prompt is useless on an invented audit and sharp on a real one.
+- *For ChatGPT / Gemini:* works as-is; both occasionally "helpfully" estimate a missing number — the "not in the provided output" instruction is the guardrail, keep it verbatim.
+- *For a Claude Project:* put the one-question test and the data-claim/judgment definitions in the project instructions so every reading inherits them.
+
+**Connection to previous chapters:** this operationalizes Chapter 1's interrogation reflex on real data and gives Chapter 2's "unverified" target columns a rule for how they get filled.
+
+**Preview of next chapter:** Chapter 4 shows you how to write the recipes that produce these audits — twice, once for the agent and once for the human who maintains it.
+
+---
+
+### Exercise 4 — CLI Exercise
+
+**What you're building this chapter:** your first real run — you fork the engine, execute a verification command, and record it, turning the contract from principle into a logged event.
+
+**Tool:** Claude Code. Cloning, running an `npm` command, reading an audit, and writing a log entry is a terminal workflow that suits an agentic CLI.
+
+**Skill level:** Intermediate — requires cloning a repo and running commands; recoverable if a command fails.
+
+**Setup:**
+
+Before running this exercise, confirm:
+- [ ] You have forked/cloned the engine repo and run its install step (e.g. `npm install`).
+- [ ] `recipes/_shared.md`, `DATA_CONTRACT.md`, and `RUN_LOG.md` exist in the repo.
+- [ ] Your `CLAUDE.md` from Chapter 1 is present (you'll extend it).
+
+**The Task:**
+
+```
+Work inside my forked engine repo. Do not modify any data files or any script;
+this is a read-and-run-and-record task only.
+
+1. Read recipes/_shared.md and tell me, in two lines, what the prime directive
+   is and which files are named as sources of truth.
+2. Run the ATS verification command:  npm run ats:verify
+   Paste the full output back to me. If it errors, show the error and stop.
+3. From that output, append a dated entry to RUN_LOG.md using the repo's log
+   format: what ran, what the audit reported (row counts / coverage / drops),
+   what worked, what didn't, and one thing the output revealed.
+4. Append one line to CLAUDE.md under a "Verified-data contract" heading:
+   "Run the script and read the audit before prompting. Never invent a count, a
+   rate, or a coverage number. Label model judgment as judgment."
+5. Show me the diff of RUN_LOG.md and CLAUDE.md before saving.
+
+Do not fetch from the network beyond what ats:verify does on its own. Stop after
+step 5.
+```
+
+**Expected output:** the verify command's audit printed back, a new `RUN_LOG.md` entry, and the contract rule appended to `CLAUDE.md` — shown as a diff for your approval.
+
+**What to inspect in the output:** read the audit — does it report *served from cache* or a fresh fetch? Are the row counts non-zero and sane? Confirm the `RUN_LOG.md` entry contains only numbers that appear in the actual output, not rounded or "approximately" values the model smoothed in.
+
+**If it goes wrong:** the most likely failure is `npm run ats:verify` erroring because data hasn't been downloaded yet or `portals.yml` is missing. Recover by reading the error and the script's README (Chapter 4's scan recipe covers the missing-config case) — do not let the agent fabricate a plausible audit to "complete" the task.
+
+**CLAUDE.md / AGENTS.md note:** this exercise writes the load-bearing rule of your whole repo into `CLAUDE.md`. Every later pipeline (Chapters 6–9) inherits it; if you add a data source, this rule is what it must satisfy before its numbers count.
+
+---
+
+### Exercise 5 — AI Validation Exercise
+
+**What you're validating:** a mixed system output where a real, sourced number and an unsourced estimate sit in the same paragraph — the seam failure the chapter warns about.
+
+**Validation type:** Reasoning chain (data-claim / judgment boundary).
+
+**Risk level:** Medium — the data claim is true, which is what lends the smuggled judgment its credibility.
+
+**Setup (pre-generated artifact — option b):** This chapter's lesson is the seam where fluency re-enters through interpretation, so validate this pre-generated output:
+
+> **Sponsorship finding — Acme Bio.** Acme Bio filed 15 LCAs over the past three
+> years with an 85% H-1B approval rate (source: DOL/USCIS records). This is a
+> strong sponsorship signal for a company of this size, and Acme Bio is very
+> likely to sponsor your visa for a research role. Given their Series B funding,
+> they are also probably expanding their team and would be a great culture fit.
+
+**The Validation Task:**
+
+Evaluate the AI output above using the following checklist. For each item, record: Pass / Fail / Cannot determine — and explain your reasoning.
+
+```
+Validation Checklist — The Verified-Data Contract
+
+□ Correctness: Which sentences are counted facts and which are estimates?
+  Apply the one-question test to each: could it have been produced by counting
+  records?
+□ Completeness: Do the data claims carry their source, and do the judgments
+  carry a "this is interpretation" label?
+□ Scope: Did the output stay within what the data supports, or did it add a
+  culture-fit and expansion claim nothing measured?
+□ Seam check (chapter-specific): Identify the exact sentence where a verified
+  number ("15 filings") is used to launch an unsourced judgment ("strong
+  signal," "very likely to sponsor"). Is that judgment labeled?
+□ Coverage-gap check (chapter-specific): Does the output mention what it could
+  NOT see (name-matching gaps, visa categories not covered, filing recency)?
+□ Failure mode check: Does this output exhibit any of the following?
+  - Fluent but wrong (a true number used to certify an untrue conclusion)
+  - Unlabeled model judgment dressed as a counted fact
+  - Missing ground truth ("probably expanding" — sourced to nothing)
+```
+
+**What to do with your findings:**
+- If the output passes all checks: use it. (It will not — at least two judgments are unlabeled.)
+- If the output fails one check: rewrite the paragraph so every counted fact carries its source and every judgment is labeled as judgment, then re-validate.
+- If the output fails multiple checks or you cannot determine pass/fail: this is a "When NOT to Use AI" moment — write the finding yourself from the audit.
+
+**AI Use Disclosure prompt:**
+After completing this validation, write a two-sentence AI Use Disclosure:
+> *Sentence 1:* What AI produced in this exercise and how you used it.
+> *Sentence 2:* One specific thing the AI could not determine that required your judgment.
+
+**Series connection:** This exercise trains **Tier 4 metacognitive supervision** — catching the moment a fluent interpretation borrows the authority of a verified number. The contract gives you the floor; this skill keeps you standing on it.
+
+---
+
+## Prompts
+
+### Figure 3.1 — Same question, two kinds of answer
+**Files:** images/03-the-verified-data-contract-fig-01.svg · d3/03-the-verified-data-contract-fig-01.html
+**Prompt:** Two columns on white — a model's fluent answer as a soft unanchored block on the left, the verified answer on the right as a compact data cluster bolted by solid connector lines down to two labeled record sources. Render the floating block in neutral gray and the grounded cluster and its connectors in the one red accent so groundedness reads as the whole contrast.
+
+### Figure 3.2 — Three pipelines, three audits, one log
+**Files:** images/03-the-verified-data-contract-fig-02.svg · d3/03-the-verified-data-contract-fig-02.html
+**Prompt:** A left-to-right systems diagram on white — three stacked source pipelines, each with a solid ink arrow to its own audit node, all three converging into one run-log node. Keep sources and audits in neutral grays, mark the converging run log in the one red accent, and add a small cache self-loop on each source as a thin minor accent.
+
+### Figure 3.3 — The one-question test for every sentence
+**Files:** images/03-the-verified-data-contract-fig-03.svg · d3/03-the-verified-data-contract-fig-03.html
+**Prompt:** A top-to-bottom decision tree on white, one entry diamond splitting into a data-claim branch and a model-judgment branch that reconverge at a final visibility diamond. Single-direction ink arrows, neutral-gray outcome nodes, and a single red accent on the data-claim path that must trace to a record.
+
+### Figure 3.4 — The floor and the ceiling: guarantees vs. limits
+**Files:** images/03-the-verified-data-contract-fig-04.svg · d3/03-the-verified-data-contract-fig-04.html
+**Prompt:** A two-column matrix on white pairing four guarantees against four matching limits as rounded chips. Give guarantee chips a solid affirming mark in the one red accent and limit chips a hollow cautionary mark in neutral gray, so a wall of assurances faces a wall of honest caveats row by row.

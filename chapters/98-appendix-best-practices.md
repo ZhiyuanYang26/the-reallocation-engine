@@ -104,6 +104,9 @@ The standard gate sequence is:
 
 If a gate has no failure path, it is not a gate. It is decoration.
 
+![The standard gate sequence shown as seven sequential checkpoints before automation is earned — problem, local evidence, stored script, small run, verification, review, logging. Each gate has an explicit failure path branching off; a gate without one is decoration, not a gate.](images/98-appendix-best-practices-fig-01.png)
+*Figure 98.1 — The phase-gate sequence before automation*
+
 ## Recipe Rules
 
 Every recipe should include:
@@ -169,3 +172,9 @@ what matters in a student's life. Human judgment remains responsible for:
 
 The point of the engine is not to remove judgment. It is to move judgment to the
 right place: after evidence, before action.
+
+## Prompts
+
+### Figure 98.1 — The phase-gate sequence before automation
+**Files:** images/98-appendix-best-practices-fig-01.svg
+**Prompt:** Brutalist process flowchart on white: seven sequential gates — problem, local evidence, stored script, small run, verification, review, logging — each a box with a single-headed arrow forward and an explicit failure path branching down. One red accent on the failure branches, ink boxes, an ochre rule under the caption that a gate without a failure path is decoration. No shadows or gradients.

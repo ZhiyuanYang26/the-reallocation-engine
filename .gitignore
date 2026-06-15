@@ -22,6 +22,9 @@
 # TypeScript cache
 *.tsbuildinfo
 
+# Generated instruction build staging (scripts/build-instructions.mjs)
+.build/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
