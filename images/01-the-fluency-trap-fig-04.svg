@@ -42,7 +42,7 @@
 
   <!-- working limit dashed marker at 80 days: x = 64 + 80*6.356 = 572.5 -->
   <line x1="573" y1="160" x2="573" y2="260" stroke="#2a1a0e" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="573" y="152" text-anchor="middle" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#2a1a0e">Working limit</text>
+  <text x="569" y="152" text-anchor="end" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#2a1a0e">Working limit · 80</text>
 
   <!-- hard stop solid marker at 90 days: x = 636 -->
   <line x1="636" y1="160" x2="636" y2="260" stroke="#C8102E" stroke-width="2.5"/>
@@ -57,5 +57,5 @@
   <text x="64" y="276" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">Day 0</text>
   <text x="240" y="216" text-anchor="middle" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="12" fill="#FFFFFF">Cumulative unemployment days</text>
 
-  <text x="32" y="332" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="11" fill="#545454">Every calendar day counts — weekends and holidays included. Past the hard stop, the record terminates with no grace period.</text>
+  <text x="32" y="332" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="11" fill="#545454">Every calendar day counts — weekends and holidays included. Past the hard stop, the record ends, with no grace period.</text>
 </svg>
