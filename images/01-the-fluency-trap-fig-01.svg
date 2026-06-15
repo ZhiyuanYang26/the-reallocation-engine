@@ -52,5 +52,5 @@
   <text x="174" y="380" text-anchor="middle" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">Can you do the work?</text>
   <text x="526" y="380" text-anchor="middle" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="11" fill="#545454">Who can supply it?</text>
 
-  <text x="32" y="404" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="11" fill="#545454">The same split, recut: the procedural majority is now cheap and machine-suppliable; the small judgment slice is uniquely human.</text>
+  <text x="32" y="404" font-family="'Inter',-apple-system,'Helvetica Neue',sans-serif" font-size="10" fill="#545454">The same split, recut: the procedural majority is now cheap and machine-suppliable; the small judgment slice is uniquely human.</text>
 </svg>
