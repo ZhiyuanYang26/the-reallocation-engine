@@ -1,0 +1,122 @@
+{
+  "attested": true,
+  "attested_date": "2026-06-21",
+  "attestation_note": "Three errors corrected: (1) Scikit-learn removed from skills — it was inferred from experience bullets, not listed on resume; (2) Vue.js, GraphQL, D3.js, Chart.js added to skills — these appeared in project/experience bullets but were omitted from extraction; (3) Back-End Software Engineer Intern title at Master of Class verified as correct per original resume despite full-stack work in bullets.",
+
+  "personal": {
+    "name": "Davy Yang",
+    "phone": "(408)-941-5779",
+    "email": "zyyang0206@gmail.com",
+    "linkedin": "linkedin.com/in/zhiyuan-yang-0203a7244",
+    "github": "https://github.com/ZhiyuanYang26"
+  },
+
+  "education": [
+    {
+      "institution": "Northeastern University",
+      "degree": "Master of Science",
+      "field": "Computer Software Engineering",
+      "start_date": "2024-01",
+      "end_date": "2026-08",
+      "status": "Expected",
+      "gpa": "3.9/4.0"
+    },
+    {
+      "institution": "University of California, San Diego",
+      "degree": "Bachelor of Science",
+      "field": "Mathematics and Economics",
+      "minor": "Data Science",
+      "start_date": "2018-09",
+      "end_date": "2023-03",
+      "status": "Completed",
+      "gpa": "3.5/4.0"
+    }
+  ],
+
+  "experience": [
+    {
+      "title": "Full-Stack Software Engineer Intern",
+      "company": "Mass Robotics Inc.",
+      "location": "Boston, MA",
+      "start_date": "2026-01",
+      "end_date": "current",
+      "bullets": [
+        "Architected and deployed a cloud-based robot imitation learning annotation platform on AWS (ECS Fargate, S3, DynamoDB) using Streamlit, integrating Cognito for OAuth and RBAC to serve 5-6 concurrent annotators, fully provisioned via CDK",
+        "Implemented distributed locking using DynamoDB conditional writes with TTL-based expiration to prevent concurrent editing conflicts, ensuring zero data loss across 5-6 concurrent sessions",
+        "Decoupled dataset preprocessing by designing a FastAPI worker microservice; implemented VPC-internal service discovery via AWS Cloud Map, accelerating LeRobot imitation learning dataset generation by 63%",
+        "Deployed vision-language-action (VLA) robot policy training on AWS Batch with PyTorch FSDP across 4-GPU clusters and JAX LoRA fine-tuning",
+        "Optimized Docker multi-stage builds reducing container image size by 32% (19GB to 12.9GB)",
+        "Resolved production blocker by migrating infrastructure to Fargate + ALB, reducing cloud costs by 74%"
+      ]
+    },
+    {
+      "title": "Full-Stack Software Engineer Intern",
+      "company": "ZenFlow Inc.",
+      "location": "San Jose, CA",
+      "start_date": "2025-05",
+      "end_date": "2025-09",
+      "bullets": [
+        "Developed a productivity app achieving 4.8/5 rating on Chrome Web Store using JavaScript/HTML/CSS with Chrome Extensions API",
+        "Built RESTful API with Python/Flask and PostgreSQL, achieving 40% performance optimization through Webpack bundling",
+        "Designed and implemented feedback collection pipeline and monetization system using Stripe API, resulting in 15% user conversion",
+        "Prototyped React Native mobile app for cross-device synchronization"
+      ]
+    },
+    {
+      "title": "Back-End Software Engineer Intern",
+      "company": "Master of Class Co., Ltd",
+      "location": "San Diego, CA",
+      "start_date": "2023-02",
+      "end_date": "2023-08",
+      "bullets": [
+        "Developed predictive models using Python (Scikit-learn, Pandas, NumPy) to analyze market trends, improving forecasting accuracy by 17%",
+        "Implemented automated anomaly detection system for financial data using unsupervised learning algorithms (Isolation Forest, DBSCAN), reducing error detection time by 23%",
+        "Optimized SQL query performance and integrated database monitoring with Prometheus and Grafana",
+        "Developed RESTful API using Node.js and PostgreSQL for financial analytics",
+        "Implemented interactive data visualization using D3.js and Chart.js"
+      ]
+    },
+    {
+      "title": "Full-Stack Software Engineer Intern",
+      "company": "Beijing Infrastructure Investment Co., Ltd",
+      "location": "Beijing, China",
+      "start_date": "2022-06",
+      "end_date": "2022-09",
+      "bullets": [
+        "Developed a scalable account management platform using Java (Spring Boot, Hibernate)",
+        "Optimized SQL database queries (MySQL, PostgreSQL, Oracle DB) through indexing, joins, and stored procedures",
+        "Built interactive user interface using React.js, HTML, CSS, and JavaScript",
+        "Enhanced UI responsiveness with Bootstrap and Material UI"
+      ]
+    }
+  ],
+
+  "projects": [
+    {
+      "title": "Web for Endangered Species – React-based SPA with Multi-Framework Integration",
+      "start_date": "2024-09",
+      "end_date": "2024-12",
+      "bullets": [
+        "Developed a responsive Single Page Application showcasing endangered species using React, Vite, Vue.js, and Svelte",
+        "Implemented Vue.js version using Vue Router and Pinia state management",
+        "Used GraphQL API to fetch endangered species data for real-time updates"
+      ]
+    },
+    {
+      "title": "Predictive Regression Model for Allegation Case Resolution in NYPD Using ML and NLP",
+      "start_date": "2023-03",
+      "end_date": "2023-06",
+      "bullets": [
+        "Performed extensive data preprocessing on 5,000+ allegations using Pandas, NumPy, OneHotEncoder, PCA, StandardScaler",
+        "Trained and optimized multiple regression models including Linear Regression, Ridge, Lasso, Random Forest, and Gradient Boosting"
+      ]
+    }
+  ],
+
+  "skills": {
+    "languages": ["Python", "Java", "JavaScript", "C", "C++", "SQL"],
+    "ml_ai": ["PyTorch (FSDP)", "JAX (LoRA)", "Weights & Biases"],
+    "web_api": ["React", "Vue.js", "FastAPI", "Streamlit", "Node.js", "Flask", "React Native", "GraphQL", "D3.js", "Chart.js"],
+    "cloud_infra": ["AWS CDK", "ECS Fargate", "AWS Batch", "S3", "DynamoDB", "Docker"]
+  }
+}
