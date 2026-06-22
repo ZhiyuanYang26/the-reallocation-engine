@@ -1,0 +1,43 @@
+target_role:
+  title: "Software Engineer"
+  description: "Full-stack or backend software engineering role at a large technology company, leveraging cloud infrastructure and distributed systems experience"
+  seniority: "New Graduate / Entry-level"
+
+visa:
+  type: "F-1 OPT"
+  status: "not_started"
+  graduation_date: "2026-08"
+  opt_start_date: "2026-09-01"           
+  opt_end_date: "2027-08-31"             
+  unemployment_days_used: 0
+  stem_eligible: true   
+  buffer_target_days: 80       # recommended: stay 80 days below the 90-day ceiling
+
+sponsorship:
+  required: true
+  note: "Sponsorship is a hard gate — companies with no H-1B sponsorship history are skip regardless of fit"
+
+geography:
+  preferred:
+    - "San Francisco Bay Area, CA"
+  open_to_remote: true
+  remote_preference: "remote-first, open to hybrid or onsite in Bay Area"
+  hard_exclusions: []
+
+industry:
+  sectors:
+    - "Technology"
+    - "Cloud Infrastructure"
+    - "AI / ML"
+    - "Robotics"
+  hard_exclusions: []
+
+company:
+  size_preference: "large"
+  target_companies_examples:
+    - "Google"
+    - "Meta"
+    - "Amazon"
+    - "Microsoft"
+    - "Apple"
+  min_employees: 5000
