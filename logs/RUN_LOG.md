@@ -158,5 +158,5 @@ private emails, or sensitive application notes.
 - **Real result:** real scorer → 7/7 PASS, exit 0. Buggy fixture → 4/7 FAIL, exit 1 (ghost/expired no longer zeroed; ratio 0.9153 vs 0.5). Harness proven able to fail.
 - **Break during testing, fixed:** first run FAILed `mult_full` with empty reason — a bug in the harness (ratio-base case had no assertion); added an explicit base check, re-ran green.
 - **Privacy:** untracked `search/resume.json` (committed PII: name/phone/email) via `git rm --cached`; `npm run doctor` privacy check now clean. Historical pushed copy (d7cf69b) still needs a separate history rewrite.
-- **Conformance:** `node scripts/conformance.mjs` clean on all contribution files. Repo-wide `npm run verify` still shows pre-existing manifest E3 drift (not introduced here).
+- **Conformance:** `npm run verify` passes (exit 0) on the `contrib/zhiyuan-gate-harness` branch; `npm run doctor` privacy clean. (An earlier note here claimed a pre-existing manifest E3 drift — that was on the `mode/` branch, not this one; corrected after re-running verify on this branch.)
 - **Open:** human-signed attestation pending (RUNNABLE-SAMPLE → VERIFIED); upstream PR.

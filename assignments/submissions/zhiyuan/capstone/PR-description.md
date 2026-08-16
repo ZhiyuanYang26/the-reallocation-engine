@@ -36,7 +36,7 @@ themselves are right. If an upstream feed reports a dead posting as `liveness=1`
 and the student is still sent to a dead job. Verifying the gate's inputs is out of this harness's scope.
 
 ## Honesty note on conformance
-`node scripts/conformance.mjs` passes on all files in this contribution, and `npm run doctor`'s
-privacy check is clean after the `resume.json` untrack. The repo-wide `npm run verify` still reports
-**pre-existing** `manifest-check` E3 drift (AGENTS.md/CLAUDE.md/etc. out of sync with `instructions/`)
-that exists on `main` and is untouched by this PR.
+`npm run verify` passes (exit 0 — conformance + manifest-check) on this branch, and `npm run doctor`'s
+privacy check is clean after the `resume.json` untrack. (An earlier draft of this note claimed a
+pre-existing `manifest-check` E3 drift; that drift was on a different working branch, not this one —
+verified by running `verify` on this branch's committed state. Corrected here to stay accurate.)
