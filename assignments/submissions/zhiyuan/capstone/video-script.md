@@ -5,8 +5,9 @@ No PII on screen (employer names only, from a public-derived file).
 
 ---
 
-**ON SCREEN:** `portfolio.md` (rendered), then the terminal for ③. Section numbers below match the
-portfolio's section numbers, so you can scroll to the matching heading as you speak.
+**ON SCREEN:** `portfolio.md` (rendered), then the terminal for ③. Scroll to the heading named below
+as you speak. Before recording, `cd` to the repo root so the prompt on camera shows
+`the-reallocation-engine` — the commands are run from there.
 
 | Script section | Scroll portfolio to |
 |---|---|

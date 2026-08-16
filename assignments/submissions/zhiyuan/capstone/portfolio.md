@@ -96,11 +96,13 @@ identical records (313 of them are all `2/2`), they tie, because the data cannot
 
 ## Demo
 
+Node ≥ 20; the component itself has no dependencies. From the repo root:
+
 ```bash
 npm run score:sponsor-credibility                                          # score everything
 npm run score:sponsor-credibility:test                                     # 10/10 invariants, exit 0
 node scripts/score/sponsorship-credibility.mjs --compare                   # the two rankings
-node scripts/score/sponsorship-credibility.mjs --rank "DATABRICKS INC"     # the table in §2
+node scripts/score/sponsorship-credibility.mjs --rank "DATABRICKS INC"     # the rank table above
 node scripts/score/sponsorship-credibility.mjs --movers                    # biggest adjustments
 ```
 
