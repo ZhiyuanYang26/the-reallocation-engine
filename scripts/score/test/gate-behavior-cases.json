@@ -1,0 +1,82 @@
+[
+  {
+    "role_id": "ghost_perfect",
+    "company": "GhostCorp",
+    "title": "Data Scientist (posting is dead)",
+    "_spec": "Perfect votes, but liveness=0 (ghost posting). A gate MUST zero the composite and force Skip — strong votes may not rescue a dead posting.",
+    "_expect": { "skip_gated": true, "composite": 0 },
+    "sponsorship": { "p": 1.0, "tier": "proven", "source": "record" },
+    "fit": { "p": 1.0, "source": "model-judgment" },
+    "role_quality": { "p": 1.0, "source": "record" },
+    "liveness": { "factor": 0.0, "source": "record" },
+    "timeline": { "factor": 1.0, "source": "your-input" }
+  },
+  {
+    "role_id": "expired_perfect",
+    "company": "TooLateInc",
+    "title": "ML Engineer (start date past OPT window)",
+    "_spec": "Perfect votes, but timeline=0 (start date impossible under the OPT clock). Must zero and Skip.",
+    "_expect": { "skip_gated": true, "composite": 0 },
+    "sponsorship": { "p": 1.0, "tier": "proven", "source": "record" },
+    "fit": { "p": 1.0, "source": "model-judgment" },
+    "role_quality": { "p": 1.0, "source": "record" },
+    "liveness": { "factor": 1.0, "source": "record" },
+    "timeline": { "factor": 0.0, "source": "your-input" }
+  },
+  {
+    "role_id": "healthy_strong",
+    "company": "RealCo",
+    "title": "Data Engineer (live, in time)",
+    "_spec": "Both gates open, strong votes. Control: gates open must NOT zero; should Apply.",
+    "_expect": { "not_gated": true, "min_composite": 0.0001 },
+    "sponsorship": { "p": 0.9, "tier": "proven", "source": "record" },
+    "fit": { "p": 0.9, "source": "model-judgment" },
+    "role_quality": { "p": 0.8, "source": "record" },
+    "liveness": { "factor": 1.0, "source": "record" },
+    "timeline": { "factor": 1.0, "source": "your-input" }
+  },
+  {
+    "role_id": "boundary_closed",
+    "company": "EdgeClosed",
+    "title": "role at liveness = gate_zero (0.05)",
+    "_spec": "Liveness exactly at the closed-gate threshold (0.05) must be treated as a closed gate.",
+    "_expect": { "skip_gated": true },
+    "sponsorship": { "p": 1.0, "tier": "proven", "source": "record" },
+    "fit": { "p": 1.0, "source": "model-judgment" },
+    "liveness": { "factor": 0.05, "source": "record" },
+    "timeline": { "factor": 1.0, "source": "your-input" }
+  },
+  {
+    "role_id": "boundary_open",
+    "company": "EdgeOpen",
+    "title": "role at liveness = 0.06 (just above the gate)",
+    "_spec": "Liveness just above the closed threshold is NOT a hard-closed gate (though it still multiplicatively tanks the score). Proves the boundary is where it is claimed.",
+    "_expect": { "not_gated": true },
+    "sponsorship": { "p": 1.0, "tier": "proven", "source": "record" },
+    "fit": { "p": 1.0, "source": "model-judgment" },
+    "liveness": { "factor": 0.06, "source": "record" },
+    "timeline": { "factor": 1.0, "source": "your-input" }
+  },
+  {
+    "role_id": "mult_full",
+    "company": "MultCo",
+    "title": "liveness = 1.0 (ratio base)",
+    "_spec": "Paired with mult_half: identical except liveness. If the gate is a MULTIPLIER, halving liveness halves the composite. If it were an additive vote, the ratio would not be 0.5.",
+    "_expect": { "ratio_pair": "base" },
+    "sponsorship": { "p": 0.9, "tier": "proven", "source": "record" },
+    "fit": { "p": 0.9, "source": "model-judgment" },
+    "liveness": { "factor": 1.0, "source": "record" },
+    "timeline": { "factor": 1.0, "source": "your-input" }
+  },
+  {
+    "role_id": "mult_half",
+    "company": "MultCo",
+    "title": "liveness = 0.5 (should be half of mult_full)",
+    "_spec": "See mult_full.",
+    "_expect": { "ratio_pair": "half", "of": "mult_full", "expect_ratio": 0.5 },
+    "sponsorship": { "p": 0.9, "tier": "proven", "source": "record" },
+    "fit": { "p": 0.9, "source": "model-judgment" },
+    "liveness": { "factor": 0.5, "source": "record" },
+    "timeline": { "factor": 1.0, "source": "your-input" }
+  }
+]

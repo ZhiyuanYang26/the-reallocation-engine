@@ -150,3 +150,13 @@ private emails, or sensitive application notes.
 - **Rebuilt:** `node scripts/build-instructions.mjs --promote` → `AGENTS.md` + `CLAUDE.md` regenerated; `CLAUDE.md` now imports `@SNICKERDOODLE.md`.
 - **Untouched:** `data/` CSVs (real company names containing "mycroft") and prior RUN_LOG history (append-only).
 - **Result:** conformance + doctor green; no stale `MYCROFT.md` outside data/history.
+
+## 2026-07-28 -- gate-behavior-harness: capstone contribution
+
+- **Contribution:** `scripts/score/gate-behavior-test.mjs` (`npm run score:gate-test`) — a gate-behavior unit-test harness for the Bayesian Role Scorer (Ch 11 + 16). Proves liveness/timeline are multiplicative gates, not votes; catches the gate-as-vote bug.
+- **Files:** harness + `scripts/score/test/gate-behavior-cases.json` + buggy fixture `scripts/score/test/gate-as-vote-scorer.mjs`; two-customer pair `recipes/gate-behavior-harness.md` + `.card.md`; audit `reports/generated/gate-behavior-harness-audit.md`; `package.json` script.
+- **Real result:** real scorer → 7/7 PASS, exit 0. Buggy fixture → 4/7 FAIL, exit 1 (ghost/expired no longer zeroed; ratio 0.9153 vs 0.5). Harness proven able to fail.
+- **Break during testing, fixed:** first run FAILed `mult_full` with empty reason — a bug in the harness (ratio-base case had no assertion); added an explicit base check, re-ran green.
+- **Privacy:** untracked `search/resume.json` (committed PII: name/phone/email) via `git rm --cached`; `npm run doctor` privacy check now clean. Historical pushed copy (d7cf69b) still needs a separate history rewrite.
+- **Conformance:** `node scripts/conformance.mjs` clean on all contribution files. Repo-wide `npm run verify` still shows pre-existing manifest E3 drift (not introduced here).
+- **Open:** human-signed attestation pending (RUNNABLE-SAMPLE → VERIFIED); upstream PR.
