@@ -89,6 +89,14 @@ nothing into `data/`, modifies no scorer, and commits nothing.
    surface early-stage companies. Ranking by credibility alone will bury a startup that genuinely
    sponsors.
 
+7. **Zero evidence and weak evidence score the same.** `FEEDMOB INC` (0 approvals in 2 filings) scores
+   `0.250000`, and a constructed employer with 1 approval in 6 filings scores `0.250000` as well. The
+   rule cannot separate *no evidence* from *a little evidence*. In this file the five zero-approval
+   employers land at ranks #1553-#1557 of 1557 and are outranked by every employer holding a real
+   approval, but that is a property of the data, not a guarantee of the rule. *Not fixed:* lowering the
+   anchor far enough to sink `0/2` would drag every thin record down with it, including the perfect
+   ones — the failure this rule exists to avoid.
+
 **Where human judgment still matters.** Whether an employer's *past* filings say anything about *your*
 application; whether an `Unknown` is worth a direct ask; whether a `2/2` startup is worth the risk that
 this component cannot price. The component ranks records. It does not know your case.

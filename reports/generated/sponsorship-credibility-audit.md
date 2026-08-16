@@ -65,6 +65,21 @@ moved from the fitted population rate to 0.5. `FEEDMOB INC` now scores **0.250**
 the tool declines to say so — the mirror of why `2/2` is not 1.000. Gate G5 (`--movers`) requires a
 human to read both directions before the output drives a decision.
 
+## Break attempts against the shipped rule
+
+**A perfect thin record ranked below a flawed deep one — a trade, not a defect.** `1LIFE HEALTHCARE`
+(2/2, never denied) scores 0.750000 and ranks below `BOLT FINANCIAL` (24/30, denied six times) at
+0.781250. There are 219,370 such pairs in the file, and the worst raw rate that can outrank a perfect
+record is 80%. Reducing trust when the sample is small is the component's stated purpose; the cost —
+burying an early-stage employer that genuinely sponsors — is recorded on the card.
+
+**Zero evidence and weak evidence are indistinguishable — a defect, not fixed.** `FEEDMOB INC`
+(0 approvals in 2 filings) scores 0.250000; a constructed employer at 1 approval in 6 filings scores
+0.250000 as well. The five zero-approval employers occupy ranks #1553-#1557 of 1557 and are outranked
+by every employer with a real approval, but that is a property of this dataset rather than a guarantee
+of the rule. Lowering the anchor enough to sink `0/2` would drag every thin record down with it, so the
+defect is disclosed rather than traded for a worse one.
+
 ## Known limitations of the current rule
 
 - **Precision at the top is not decision-relevant.** CONFLUENT 0.998366 vs JUNIPER 0.997596 is eight
