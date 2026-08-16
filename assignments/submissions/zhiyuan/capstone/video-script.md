@@ -10,16 +10,16 @@ portfolio's section numbers, so you can scroll to the matching heading as you sp
 
 | Script section | Scroll portfolio to |
 |---|---|
-| ① domain | §1 The problem |
-| ② the gap | §2 The gap (the rank table) |
-| ③ uncut live run | *switch to terminal* — then §3 / §4 after |
-| ④ what breaking it taught me | §5 |
-| ⑤ honest limitation | §6 (last bullet) |
-| ⑥ close | §7 Demo |
+| ① domain | The problem |
+| ② the gap | The gap (the rank table) |
+| ③ uncut live run | *switch to terminal* — then What I built / The measurable improvement after |
+| ④ what breaking it taught me | Failure modes — first bullet |
+| ⑤ honest limitation | Failure modes — last bullet |
+| ⑥ close | Demo |
 
 ---
 
-### ① The domain and the asymmetry (~45s) — portfolio §1
+### ① The domain and the asymmetry (~45s) — portfolio: The problem
 
 > "I contribute to The Reallocation Engine. It's a job-search tool for international students on OPT —
 > people who only get a limited number of applications before their clock runs out. So the tool has to
@@ -27,7 +27,7 @@ portfolio's section numbers, so you can scroll to the matching heading as you sp
 >
 > One of the strongest signals it uses is how reliably a company gets its H-1B petitions approved."
 
-### ② The gap I'm filling (~45s) — portfolio §2, the rank table on screen
+### ② The gap I'm filling (~45s) — portfolio: The gap, rank table on screen
 
 *(Optional but strong: run this live so the ranks on screen are real, not asserted —*
 *`node scripts/score/sponsorship-credibility.mjs --rank "DATABRICKS INC"`, same for `"1LIFE"`.)*
@@ -86,7 +86,7 @@ node scripts/score/sponsorship-credibility.mjs --movers
 
 *(If anything errors on camera, leave it in and narrate the fix — that's the most honest footage.)*
 
-### ④ One thing I learned (~35s) — portfolio §5
+### ④ One thing I learned (~35s) — portfolio: Failure modes, first bullet
 
 > "One thing I learned. My first version anchored the adjustment to the population average, which is
 > ninety-eight percent — and when I tried to break it, it broke: FeedMob, zero approvals out of two,
@@ -97,7 +97,7 @@ node scripts/score/sponsorship-credibility.mjs --movers
 > around a wrong number is decoration. So I changed the anchor instead of labeling the symptom.
 > FeedMob is point two five now."
 
-### ⑤ One honest limitation (~30s) — portfolio §6, last bullet
+### ⑤ One honest limitation (~30s) — portfolio: Failure modes, last bullet
 
 > "And the limitation I can't get around: this checks *sample size*. It does not check whether the data
 > is true. If the upstream join dropped a company's filings, I compute a clean score off a wrong
@@ -106,7 +106,7 @@ node scripts/score/sponsorship-credibility.mjs --movers
 > Auditing sample size and auditing data quality are two different jobs. I did one of them. That's the
 > honest boundary."
 
-### ⑥ Close (~15s) — portfolio §7
+### ⑥ Close (~15s) — portfolio: Demo
 
 > "It runs on the real file, it gives the scorer an evidence-weighted signal where there wasn't one, it
 > leaves companies with identical records tied instead of faking an order, and it never scores a
