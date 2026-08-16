@@ -70,6 +70,9 @@ node scripts/score/sponsorship-credibility.mjs --emit output/sponsorship-credibi
 
 # 6. Spot-check a named employer against the record
 node scripts/score/sponsorship-credibility.mjs --company "DATABRICKS INC"
+
+# 7. Where an employer sits under each ranking (raw rank vs credibility rank)
+node scripts/score/sponsorship-credibility.mjs --rank "DATABRICKS INC"
 ```
 
 ## 6. Output Contract

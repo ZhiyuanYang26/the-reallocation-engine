@@ -265,6 +265,27 @@ if (has('--compare')) {
   console.log(`      not a claim that #1 is meaningfully better than #4.`);
 }
 
+if (has('--rank')) {
+  // Where an employer sits under each ranking. The raw ranking's ties are broken
+  // by file order, so a raw rank inside the 100% block is a position, not a merit.
+  const q = String(flag('--rank')).toUpperCase();
+  const rawSorted = [...out].sort((a, b) => b.raw_rate - a.raw_rate);
+  const credSorted = [...out].sort(byRank);
+  const hits = out.filter((r) => r.name.toUpperCase().includes(q));
+  if (!hits.length) {
+    console.log(`\n${q}: not scored in this file (EMPTY or absent) — no rank`);
+  } else {
+    console.log('\n| Employer | approvals/total | raw rate | rank by raw rate | credibility | rank by credibility |');
+    console.log('|---|---|---|---|---|---|');
+    for (const r of hits.slice(0, 20)) {
+      const rr = rawSorted.findIndex((x) => x.name === r.name) + 1;
+      const cr = credSorted.findIndex((x) => x.name === r.name) + 1;
+      console.log(`| ${r.name} | ${r.approvals}/${r.total} | ${r.raw_rate.toFixed(4)} | #${rr} | ${r.credibility.toFixed(6)} | #${cr} |`);
+    }
+    console.log(`\n(${out.length} employers scored. Raw ranks inside the ${out.filter((r) => r.raw_rate === 1).length}-employer 100% block are file order, not merit.)`);
+  }
+}
+
 if (has('--movers')) {
   const M = Number(flag('--top', 10));
   console.log('\nLARGEST DOWNWARD ADJUSTMENTS (thin records losing their unearned 100%)');

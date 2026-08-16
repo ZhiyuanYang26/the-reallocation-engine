@@ -42,6 +42,7 @@ Overlap: **0/10**.
 - `npm run score:sponsor-credibility:test` → the invariants (expect 10/10, exit 0).
 - `… --compare` → raw top-10 vs adjusted top-10, overlap, median sample size. **This is the claim.**
 - `… --movers` → the biggest adjustments in both directions. **Read this before acting.**
+- `… --rank "NAME"` → where an employer sits under each ranking (raw vs credibility).
 - `… --company "NAME"` → one employer against its record.
 - `… --emit output/sponsorship-credibility.json` → generated artifact (not a source of truth).
 

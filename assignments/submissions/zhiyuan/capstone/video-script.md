@@ -11,32 +11,39 @@ No PII on screen (employer names only, from a public-derived file).
 > people who only get a limited number of applications before their clock runs out. So the tool has to
 > tell them where to spend those applications.
 >
-> One of the biggest signals is: how reliably does this company get its H-1B petitions approved. The
-> engine was reading that straight off the approval rate. And that turns out to be broken."
+> One of the strongest signals it uses is how reliably a company gets its H-1B petitions approved."
 
-### ② The defect (~40s) — show the raw top-10
+### ② The gap I'm filling (~45s) — show the raw list, then say what's missing
 
-> "Here's the real data. Fifteen hundred and fifty-seven companies. Twelve hundred and sixty-two of
-> them are at exactly one hundred percent — because most of them have two, or four, or twelve filings
-> total. Two out of two is a hundred percent. Six hundred and ten out of six hundred and ten is also a
-> hundred percent.
+*(Optional but strong: run this live so the ranks on screen are real, not asserted —*
+*`node scripts/score/sponsorship-credibility.mjs --rank "DATABRICKS INC"`, same for `"1LIFE"`.)*
+
+> "Here's the gap. The engine reads that signal as an approval rate — and a rate on its own doesn't
+> carry how much evidence is behind it. Two out of two is a hundred percent. Six hundred and ten out of
+> six hundred and ten is also a hundred percent. On the real file, twelve hundred and sixty-two
+> companies out of fifteen fifty-seven are all sitting at exactly a hundred percent.
 >
-> So when you sort by rate, twelve hundred companies tie, and the tie gets broken by whatever order the
-> rows are in. Look at the top ten — 1Life, 1UpHealth, 24M, 317 Labs. That's alphabetical. That's not a
-> ranking, that's the file order wearing a percent sign. And a student would apply based on it."
+> So look what that does. 1Life Healthcare — two filings, both approved — ranks number one. Databricks,
+> sixteen hundred and forty approvals out of sixteen forty-eight, ranks twelve hundred and sixty-fifth.
+> LinkedIn, with nearly five thousand filings, is right behind it. Eight denials out of sixteen hundred
+> pushes you below a company we know almost nothing about.
+>
+> Nothing upstream of the scorer weighed evidence. That's the piece I built: a component that turns
+> approvals and denials into a credibility score that knows how much record is behind it, and feeds
+> that to the scorer instead of the bare rate. After it runs, Databricks is eleventh and 1Life is
+> twelve hundred and sixth."
 
 ### ③ THE UNCUT LIVE RUN (~2 min) — do not cut inside this take
 
-> "So I built a scorer that takes sample size into account. The rule is one line: approvals plus one,
-> over total plus two. Every company starts with one win and one loss, then its own record gets added.
-> Two out of two becomes point seven five, not one. Seven hundred out of a thousand stays at point
-> seven — a big record barely moves."
+> "The rule is one line: approvals plus one, over total plus two. Every company starts with one win and
+> one loss, then its own record gets added. Two out of two becomes point seven five, not one. Seven
+> hundred out of a thousand stays at point seven — a deep record barely moves. Credibility gets earned."
 
 ```
 npm run score:sponsor-credibility
 ```
 
-> "Fifteen fifty-seven companies scored, twenty-eight thousand with no usable record. Those get
+> "Fifteen fifty-seven companies scored, twenty-eight thousand with no usable record. Those come back
 > 'Unknown', not zero — never zero. No record is not the same thing as a denial."
 
 ```
@@ -44,45 +51,37 @@ npm run score:sponsor-credibility:test
 ```
 
 > "Ten invariants. A thin perfect record has to lose to a deep one. A thin perfect record still has to
-> beat a mediocre big one. And denials have to count too — zero out of two scores higher than zero out
-> of forty, because forty is real evidence and two isn't. All ten pass."
+> beat a mediocre big one. And denials count too — zero out of two scores higher than zero out of
+> forty, because forty filings is real evidence and two isn't. All ten pass."
 
 ```
 node scripts/score/sponsorship-credibility.mjs --compare
 ```
 
-> "And here's the payoff. Old list on top — alphabetical, median ten filings. New list underneath —
-> Confluent with six hundred and ten, Juniper with twelve hundred, Datadog with three hundred and
-> forty. Median two hundred and seventy-six filings. Overlap between the two lists: zero out of ten.
-> The entire list a student would act on is different."
+> "And here's what it buys. Old list on top — median ten filings. New list underneath — Confluent with
+> six hundred and ten, Juniper with twelve hundred, Datadog with three hundred and forty. Median two
+> hundred and seventy-six filings. Overlap between the two lists: zero out of ten. The entire shortlist
+> a student would act on is different, and every name on it is backed by real volume."
 
 ```
 node scripts/score/sponsorship-credibility.mjs --movers
 ```
 
-> "And this shows the biggest adjustments both ways. I'll explain the second table in a second."
+> "And this shows the biggest adjustments in both directions — what lost an unearned hundred percent,
+> and what got pulled up off a zero."
 
 *(If anything errors on camera, leave it in and narrate the fix — that's the most honest footage.)*
 
-### ④ One thing I learned (~60s)
+### ④ One thing I learned (~35s)
 
-> "Here's what I actually learned, and it cost me my first version.
+> "One thing I learned. My first version anchored the adjustment to the population average, which is
+> ninety-eight percent — and when I tried to break it, it broke: FeedMob, zero approvals out of two,
+> came back at point eight eight. Shrinking toward a high average doesn't just pull good small samples
+> down, it pulls bad ones up.
 >
-> Version one used a fancier method — it fit a prior to the data and shrank every company toward the
-> population average, which is ninety-eight percent. Passed all its tests. Then I tried to break it: I
-> fed it companies with *bad* records instead of good ones.
->
-> FeedMob has zero approvals out of two filings. Zero. My scorer gave it point eight eight — because
-> shrinking toward a ninety-eight percent average doesn't just pull good small samples down, it pulls
-> bad ones *up*. Twenty-five companies got rescued like that.
->
-> My first fix was a label. I tagged the score 'mostly borrowed from the prior' and refused to promote
-> it. Both true. But it was a true sentence wrapped around a number that still said point eight eight —
-> and a label that contradicts its own number is decoration, not a fix.
->
-> So I threw out the method, not the symptom. The anchor moved from ninety-eight percent to fifty
-> percent. FeedMob is now point two five. And it's not zero — because two filings can't prove a company
-> never sponsors, the same reason two filings can't prove it always does."
+> I tried to fix that with a warning label, and that's the part worth keeping: a true label wrapped
+> around a wrong number is decoration. So I changed the anchor instead of labeling the symptom.
+> FeedMob is point two five now."
 
 ### ⑤ One honest limitation (~30s)
 
@@ -95,9 +94,9 @@ node scripts/score/sponsorship-credibility.mjs --movers
 
 ### ⑥ Close (~15s)
 
-> "It runs on the real file, it breaks the twelve-hundred-way tie in the direction the record supports,
-> it leaves companies with identical records tied instead of faking an order, and it never scores a
+> "It runs on the real file, it gives the scorer an evidence-weighted signal where there wasn't one, it
+> leaves companies with identical records tied instead of faking an order, and it never scores a
 > missing record as a zero. That's the contribution."
 
 ---
-**Total ≈ 4–4.5 min.** Graded core is the uncut ③. If something goes wrong on camera, keep it.
+**Total ≈ 4 min.** Graded core is the uncut ③. If something goes wrong on camera, keep it.
