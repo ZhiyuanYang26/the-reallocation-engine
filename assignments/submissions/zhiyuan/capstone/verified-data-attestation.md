@@ -34,5 +34,4 @@ I have reviewed this contribution against the verified-data contract. Every numb
 script-output or a labeled `your-input` test case; none is fabricated. The privacy and honesty gates
 pass.
 
-Signed: __________________________  ·  Date: __________
-_(Zhiyuan Yang — fill name + date after you have read the honest run and re-run `npm run doctor`.)_
+Signed: **Zhiyuan Yang**  ·  Date: **2026-07-28**
