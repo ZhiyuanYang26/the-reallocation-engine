@@ -173,3 +173,11 @@ private emails, or sensitive application notes.
 - **Gates shown stopping:** missing source -> exit 2 (does not estimate); schema drift -> exit 2 (refuses to guess columns); employer with no counts -> `EMPTY ... NOT zero`; identical records stay tied (313 employers are all 2/2).
 - **Privacy:** reads one public-derived CSV; touches no `data/ats/` or `private/` path; writes only to `output/`. Employer names only, no PII. `npm run doctor`: no private/PII paths tracked.
 - **Open:** upstream PR; human-signed attestation completed 2026-08-16 (Zhiyuan Yang).
+
+## 2026-08-16 -- sponsorship-credibility: break attempts against the shipped rule
+
+- **Why:** the only documented break targeted version 1 (beta-binomial empirical Bayes), which is not the code that shipped. Two attempts were run against the shipped rule on the real file.
+- **Attempt A (trade, not a defect):** `1LIFE HEALTHCARE` 2/2 (never denied) scores 0.750000 and ranks below `BOLT FINANCIAL` 24/30 (six denials) at 0.781250. 219,370 such pairs; the worst raw rate that can outrank a perfect record is 80%. Reducing trust on a thin sample is the component's stated purpose; the cost (burying a genuinely sponsoring early-stage employer) is on the card.
+- **Attempt B (defect, not fixed):** `FEEDMOB INC` 0/2 scores 0.250000, the same figure a constructed 1-in-6 employer returns — the rule cannot separate no evidence from a little evidence. Zero-approval employers sit at ranks #1553-#1557 of 1557, outranked by every employer with a real approval, but that is a property of this dataset. Lowering the anchor to sink 0/2 would drag every thin record down with it, so the defect is disclosed rather than traded.
+- **Files:** `honest-run.md` §4 (three attempts in one section; tier knife-edge moved out to §5 as a plausibility finding), `recipes/sponsorship-credibility.card.md` (7th failure mode), `reports/generated/sponsorship-credibility-audit.md`, `portfolio.md`.
+- **Conformance:** `npm run verify` exit 0; `npm run doctor` privacy clean.
