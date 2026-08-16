@@ -1,6 +1,7 @@
 # Explainer Video Script — Sponsorship Credibility (3–6 min)
 
-Short sentences. One idea each. Say it, don't read it.
+Talk, don't read. If a line feels awkward in your mouth, say it your own way — the facts and the
+numbers are what matter.
 
 **Setup.** Run `cd ~/Desktop/the-reallocation-engine` **before** you hit record, so the prompt already
 shows the repo. Two windows: `portfolio.md` rendered on the left, terminal on the right.
@@ -18,54 +19,57 @@ shows the repo. Two windows: `portfolio.md` rendered on the left, terminal on th
 
 ### ① Who this is for (~30s)
 
-> "I work on The Reallocation Engine. It helps international students on OPT decide where to apply.
+> "I work on a project called The Reallocation Engine. It helps international students on OPT figure
+> out where to apply.
 >
-> You only get so many applications before your clock runs out. So the tool has to pick.
->
-> One of the biggest signals is: does this company actually get H-1Bs approved."
+> The whole problem is that you only get so many applications before your clock runs out, so the tool
+> has to pick for you. And one of the biggest things it looks at is whether a company actually gets
+> H-1Bs approved."
 
 ### ② The gap (~45s)
 
-*Run this live if you want the ranks to be real:*
+*Run this live if you want the ranks on screen to be real:*
 `node scripts/score/sponsorship-credibility.mjs --rank "DATABRICKS INC"`
 
-> "The tool used the approval rate. But a rate doesn't tell you how much data is behind it.
+> "The way it did that was just the approval rate. But a rate on its own doesn't tell you how much data
+> is behind it.
 >
-> Two out of two is a hundred percent. Six hundred and ten out of six ten is also a hundred percent.
-> Same number. Totally different thing.
+> Two out of two is a hundred percent. Six hundred and ten out of six hundred and ten is also a hundred
+> percent. Same number, completely different situation.
 >
-> On the real file, twelve hundred and sixty-two companies are all at exactly a hundred percent.
+> And on the real file, twelve hundred and sixty-two companies are sitting at exactly a hundred percent.
+> So there's nothing left to sort them by.
 >
-> So look what happens. A company with two filings ranks first. Databricks — sixteen forty out of
-> sixteen forty-eight — ranks twelve hundred and sixty-fifth. Eight rejections out of sixteen hundred,
-> and it drops below a company we know nothing about.
+> Here's what that actually does. A company with two filings comes out number one. Databricks — sixteen
+> hundred and forty approvals out of sixteen forty-eight — comes out twelve hundred and sixty-fifth.
+> Eight rejections out of sixteen hundred, and it lands below a company we know basically nothing about.
 >
-> Nothing was weighing the evidence. That's what I built."
+> Nothing in the pipeline was weighing the evidence. That's the piece I built."
 
 ### ③ THE UNCUT LIVE RUN (~90s) — don't cut inside this
 
-> "The rule is one line. Approvals plus one, over total plus two.
+> "The rule itself is one line: approvals plus one, over total plus two.
 >
-> Every company starts with one win and one loss. Then you add its real record.
->
-> Two out of two becomes point seven five. Not one. Seven hundred out of a thousand stays at point
-> seven — a big record barely moves. You earn the score."
+> The idea is that every company starts out with one win and one loss, and then you add its real record
+> on top. So two out of two comes out at point seven five instead of one. But seven hundred out of a
+> thousand stays right around point seven, because a big record barely moves. You have to earn the
+> score."
 
 ```
 npm run score:sponsor-credibility
 ```
 
-> "Fifteen hundred companies scored. Twenty-eight thousand have no record at all.
->
-> Those come back Unknown. Not zero. No record is not a rejection."
+> "Fifteen hundred and fifty-seven companies get scored, and twenty-eight thousand have no record at
+> all. Those come back as Unknown, not zero — because not having a record isn't the same thing as being
+> rejected."
 
 ```
 npm run score:sponsor-credibility:test
 ```
 
-> "Ten checks. A small perfect record has to lose to a big one. But it should still beat a big mediocre
-> one. And rejections count — zero out of two scores higher than zero out of forty, because forty is
-> real evidence and two isn't.
+> "These are the ten checks. A small perfect record has to lose to a big one, but it should still beat a
+> big mediocre one. And rejections have to count too — zero out of two scores higher than zero out of
+> forty, because forty filings is real evidence and two isn't.
 >
 > All ten pass."
 
@@ -73,49 +77,49 @@ npm run score:sponsor-credibility:test
 node scripts/score/sponsorship-credibility.mjs --compare
 ```
 
-> "Old list on top. New list below.
+> "And this is the payoff. The old list is on top, the new one underneath.
 >
-> Confluent, six hundred and ten. Juniper, twelve hundred. Datadog, three forty.
->
-> Median went from ten filings to two hundred and seventy-six. Overlap between the two lists: zero out
-> of ten. Completely different shortlist."
+> Now it's Confluent with six hundred and ten filings, Juniper with twelve hundred, Datadog with three
+> hundred and forty. The median goes from ten filings to two hundred and seventy-six, and the overlap
+> between the two lists is zero out of ten. It's a completely different shortlist."
 
 ```
 node scripts/score/sponsorship-credibility.mjs --movers
 ```
 
-> "And this is what moved, both directions."
+> "And this one shows what moved the most, in both directions."
 
-*(If it errors on camera, keep rolling and fix it out loud. That's the best footage you can get.)*
+*(If something errors on camera, keep rolling and fix it out loud — that's the best footage you can get.)*
 
-### ④ What I got wrong (~40s)
+### ④ What I learned (~40s)
 
-> "My first version did this differently. It pulled every company toward the average, which is
-> ninety-eight percent. All the tests passed.
+> "The thing I actually took away from this is that a correct label on a wrong number isn't a fix, it's
+> decoration. And I learned that the hard way.
 >
-> Then I tried to break it. I fed it a company called FeedMob. Zero approvals, two rejections.
+> My first version pulled every company toward the average, which is ninety-eight percent. All the tests
+> passed. Then I tried to break it — I looked up a company called FeedMob, zero approvals and two
+> rejections, and my scorer gave it point eight eight. Because pulling everything toward a high average
+> doesn't just drag the good small samples down, it drags the bad ones up.
 >
-> It gave it point eight eight.
->
-> Because pulling toward a high average doesn't just drag good small samples down. It drags bad ones up.
->
-> My first fix was a warning label saying the score was borrowed. That's the part I actually learned
-> from — a true label on a wrong number is decoration. So I changed the math instead. FeedMob is point
-> two five now."
+> My first instinct was to slap a warning on it saying the score was borrowed. Which was true, and
+> useless, because the number still said point eight eight. So I changed the math instead. FeedMob is
+> point two five now."
 
 ### ⑤ What it can't do (~25s)
 
-> "One honest limit. This checks how much data you have. It does not check if the data is right.
+> "And here's the one thing this can't do.
 >
-> If the source dropped a company's filings, I compute a clean score off a wrong number. All ten
-> checks still pass. Nothing warns you.
+> It checks how much data there is. It doesn't check whether that data is correct. So if the source file
+> is missing some of a company's filings, I'll still hand you a nice clean score — it'll just be wrong.
+> All ten checks still pass, and nothing tells you anything's off.
 >
-> Those are two different jobs. I did one."
+> Checking sample size and checking data quality are two different problems. I only solved one of them."
 
 ### ⑥ Close (~15s)
 
-> "It runs on the real file. It ranks by evidence instead of by row order. Companies with the same
-> record stay tied. And nothing missing ever gets a zero."
+> "So — it runs on the real file, it ranks companies by how much evidence there is instead of by row
+> order, companies with identical records stay tied, and nothing that's missing ever gets scored a zero.
+> That's the contribution."
 
 ---
-**≈ 4 min.** The graded part is ③, uncut. Keep the mistakes in.
+**≈ 4 min.** The graded part is ③, uncut. If you make a mistake, leave it in.
