@@ -150,3 +150,25 @@ private emails, or sensitive application notes.
 - **Rebuilt:** `node scripts/build-instructions.mjs --promote` → `AGENTS.md` + `CLAUDE.md` regenerated; `CLAUDE.md` now imports `@SNICKERDOODLE.md`.
 - **Untouched:** `data/` CSVs (real company names containing "mycroft") and prior RUN_LOG history (append-only).
 - **Result:** conformance + doctor green; no stale `MYCROFT.md` outside data/history.
+
+## 2026-07-28 -- gate-behavior-harness: capstone contribution
+
+- **Contribution:** `scripts/score/gate-behavior-test.mjs` (`npm run score:gate-test`) — a gate-behavior unit-test harness for the Bayesian Role Scorer (Ch 11 + 16). Proves liveness/timeline are multiplicative gates, not votes; catches the gate-as-vote bug.
+- **Files:** harness + `scripts/score/test/gate-behavior-cases.json` + buggy fixture `scripts/score/test/gate-as-vote-scorer.mjs`; two-customer pair `recipes/gate-behavior-harness.md` + `.card.md`; audit `reports/generated/gate-behavior-harness-audit.md`; `package.json` script.
+- **Real result:** real scorer → 7/7 PASS, exit 0. Buggy fixture → 4/7 FAIL, exit 1 (ghost/expired no longer zeroed; ratio 0.9153 vs 0.5). Harness proven able to fail.
+- **Break during testing, fixed:** first run FAILed `mult_full` with empty reason — a bug in the harness (ratio-base case had no assertion); added an explicit base check, re-ran green.
+- **Privacy:** untracked `search/resume.json` (committed PII: name/phone/email) via `git rm --cached`; `npm run doctor` privacy check now clean. Historical pushed copy (d7cf69b) still needs a separate history rewrite.
+- **Conformance:** `npm run verify` passes (exit 0) on the `contrib/zhiyuan-gate-harness` branch; `npm run doctor` privacy clean. (An earlier note here claimed a pre-existing manifest E3 drift — that was on the `mode/` branch, not this one; corrected after re-running verify on this branch.)
+- **Open:** human-signed attestation pending (RUNNABLE-SAMPLE → VERIFIED); upstream PR.
+
+## 2026-08-16 -- sponsorship-credibility: capstone contribution
+
+- **Contribution:** `scripts/score/sponsorship-credibility.mjs` (`npm run score:sponsor-credibility`) — a sample-size-aware sponsorship credibility feed for the Ch.11 Role Scorer (Ch 5 + 11 + 16). Converts raw H-1B approval rates into Beta posterior means with the prior fitted by beta-binomial MLE at run time.
+- **The defect addressed:** on `SEC_DOL_H1b_data_mapped.csv`, 1262 of 1557 employers sit at exactly 100% raw approval rate; ranking by rate is a 1262-way tie broken by row order (raw top-10 is alphabetical).
+- **Files:** component + two-customer pair `recipes/sponsorship-credibility.md` + `.card.md`; audit `reports/generated/sponsorship-credibility-audit.md`; `package.json` scripts.
+- **Real result:** 1557 scored · 28812 EMPTY · 0 ERROR. Fitted prior alpha=17.0132 beta=0.3472 (mu=0.9800, M=17.360, logLik=-11561.09). Self-test 10/10, exit 0. `--compare`: top-10 overlap **0/10**, median sample size in the list 10 → 240 filings.
+- **Plausibility failure found and fixed:** DATABRICKS (1640/1648, credibility 0.994988) was labeled `Likely` — 1.2e-5 short of an authored 0.995 tier cut — ranking it below 240-filing employers. Tier bands widened (Proven: n>=100 & c>=0.99); thresholds remain authored (`your-input`) and are labeled as such.
+- **Deliberate break, found and fixed:** shrinkage toward the fitted ~98% rate rescued adverse thin records — FEEDMOB INC (0/2) scored 0.878762; 25 employers lifted >0.20 above their own rate. Fixed: an adverse raw record (<0.75) is never promoted above `Thin`, and the borrowed portion is printed as an explicit caution. Two regression invariants added (self-test 7/7 → 10/10). **Residual risk logged:** the posterior mean 0.878762 is unchanged by design; a consumer reading `credibility` while ignoring `tier`/`caution` can still be misled (documented on the card).
+- **Gates shown stopping:** missing source → exit 2 (does not estimate); schema drift → exit 2 (refuses to guess columns); employer with no counts → `EMPTY … NOT zero`.
+- **Privacy:** reads one public-derived CSV; touches no `data/ats/` or `private/` path; writes only to `output/`. Employer names only, no PII.
+- **Open:** upstream PR; human-signed attestation completed 2026-08-16 (Zhiyuan Yang).
