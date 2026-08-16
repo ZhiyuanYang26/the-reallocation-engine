@@ -7,15 +7,14 @@ All output below is pasted from the terminal, not described.
 
 ## 1. Plausibility audit — before trusting anything
 
-I checked five things a wrong-but-fluent version would fail:
-
 | Check | Expected | Actual | |
 |---|---|---|---|
-| Deep near-perfect beats thin perfect | DATABRICKS > 2/2 | 0.994988 > 0.982066 | ✔ |
-| A bad record stays bad | 1/40 well below 0.5 | 0.314035 | ✔ |
-| Large n converges to its own rate | Δ < 0.002 at n=4990 | Δ = 0.00005 | ✔ |
+| A deep near-perfect record beats a thin perfect one | 995/1000 > 2/2 | 0.9940 > 0.7500 | ✔ |
+| A thin perfect record still beats a deep mediocre one | 5/5 > 700/1000 | 0.8571 > 0.6996 | ✔ |
+| More evidence of denial scores lower | 0/2 > 0/10 > 0/40 | 0.2500 > 0.0833 > 0.0238 | ✔ |
+| A deep record keeps its own rate | 700/1000 ≈ 0.700 | 0.699601 | ✔ |
 | "No record" ≠ "denied" | EMPTY, not 0 | `tier Unknown — NOT zero` | ✔ |
-| Tier labels track evidence | a 1648-filing employer is not demoted | **FAILED** — see §4 | ✘→fixed |
+| Employers with identical records are not falsely ordered | tie | 313 employers at `2/2` tie | ✔ |
 
 ## 2. The run
 
@@ -27,36 +26,36 @@ $ npm run score:sponsor-credibility
 
 source        : data/80-days-to-stay/data/SEC_DOL_H1b_data_mapped.csv
 employers     : 1557 scored · 28812 EMPTY (no usable record) · 0 ERROR (unparseable)
-fitted prior  : alpha=17.0132  beta=0.3472  (mu=0.9800, M=17.360, logLik=-11561.09)
-                ^ estimated from these 1557 records by beta-binomial MLE at run time — not a constant
+rule          : credibility = (approvals + 1) / (total + 2)  — Laplace's rule of succession
+                anchored at 0.5, NOT at the pooled rate — the population cannot vouch for an employer's own record
 raw-rate ties : 1262 employers sit at exactly 100% on the raw rate (the tie this component breaks)
-cautions      : 25 employers carry a prior-borrowed caution (score lifted >0.2 above their own record)
+distinct scores: 215 (employers with identical records stay tied — the data cannot separate them)
 ```
 
 ```
 $ npm run score:sponsor-credibility:test
 
 SELF-TEST (invariants)
+  PASS  more evidence of denial scores lower: c(0/2) > c(0/10) > c(0/40)
+        0.2500 > 0.0833 > 0.0238
   PASS  monotone in sample size at equal raw rate: c(2/2) < c(18/18) < c(610/610)
-        0.982066 < 0.990181 < 0.999447
-  PASS  a thin perfect record does not outrank a deep near-perfect one: c(2/2) < c(1640/1648)
-        0.982066 < 0.994988
-  PASS  shrinkage is toward the fitted rate, never above 1 or below 0
-        c(0/3)=0.835602 c(3/3)=0.982947
-  PASS  a genuinely bad record stays bad: c(1/40) < 0.5
-        c(1/40)=0.314035
-  PASS  large n converges to the raw rate (|c - raw| < 0.002 at n=4990)
-        c=0.994339 raw=0.994389
+        0.7500 < 0.9500 < 0.9984
+  PASS  a thin perfect record does not outrank a deep near-perfect one: c(2/2) < c(995/1000)
+        0.7500 < 0.9940
+  PASS  a thin perfect record still beats a deep mediocre one: c(5/5) > c(700/1000)
+        0.8571 > 0.6996
+  PASS  a deep record keeps its own rate (|c - raw| < 0.001 at n=1000)
+        c(700/1000)=0.699601 raw=0.700000
+  PASS  an all-denied record is not rescued: c(0/2) < 0.30
+        c(0/2)=0.2500
+  PASS  a genuinely bad deep record stays bad: c(1/40) < 0.10
+        c(1/40)=0.0476
+  PASS  the score never reaches 0 or 1 (no record proves certainty)
+        c(0/10000)=1.00e-4 c(10000/10000)=0.999900
   PASS  no record is scored 0 (EMPTY is null, not zero)
         tier(null) === "Unknown"
-  PASS  an adverse thin record is never promoted above Thin: 0/2 stays Thin
-        c(0/2)=0.878762 tier=Thin
-  PASS  a prior-borrowed score is flagged, not shipped silently: 0/2 carries a caution
-        prior-borrowed: raw record is 0.0% on a thin sample; 0.879 of this score comes from the populati
-  PASS  a well-evidenced employer carries no caution: 1640/1648 is unflagged
-        no caution on a deep record
-  PASS  prior was fitted, not assumed (M is finite and > 0)
-        M=17.360 mu=0.9800
+  PASS  identical records rank equal (no invented order)
+        byRank(2/2, 2/2) === 0
 
 10/10 invariants hold.
 ```
@@ -83,47 +82,34 @@ TOP 10 BY RAW APPROVAL RATE (ties broken by file order — the defect)
 TOP 10 BY SAMPLE-SIZE-AWARE CREDIBILITY
 | # | Employer | approvals/total | raw rate | credibility | tier |
 |---|---|---|---|---|---|
-| 1 | CONFLUENT INC | 610/610 | 1.0000 | 0.999447 | Proven |
-| 2 | DATADOG INC | 340/340 | 1.0000 | 0.999028 | Proven |
-| 3 | AURIS HEALTH INC | 276/276 | 1.0000 | 0.998816 | Proven |
-| 4 | CCC INTELLIGENT SOLUTIONS HOLDINGS INC | 240/240 | 1.0000 | 0.998651 | Proven |
-| 5 | ASTERA LABS INC | 208/208 | 1.0000 | 0.998459 | Proven |
-| 6 | FUSION SURPLUS SOLUTIONS INC | 204/204 | 1.0000 | 0.998431 | Proven |
-| 7 | PROCORE TECHNOLOGIES INC | 190/190 | 1.0000 | 0.998326 | Proven |
-| 8 | SOCIAL FINANCE INC | 182/182 | 1.0000 | 0.998258 | Proven |
-| 9 | TURO INC | 172/172 | 1.0000 | 0.998166 | Proven |
-| 10 | JUNIPER NETWORKS INC | 1244/1246 | 0.9984 | 0.998142 | Proven |
+| 1 | CONFLUENT INC | 610/610 | 1.0000 | 0.998366 | Proven |
+| 2 | JUNIPER NETWORKS INC | 1244/1246 | 0.9984 | 0.997596 | Proven |
+| 3 | DATADOG INC | 340/340 | 1.0000 | 0.997076 | Proven |
+| 4 | AURIS HEALTH INC | 276/276 | 1.0000 | 0.996403 | Proven |
+| 5 | CCC INTELLIGENT SOLUTIONS HOLDINGS INC | 240/240 | 1.0000 | 0.995868 | Proven |
+| 6 | ASTERA LABS INC | 208/208 | 1.0000 | 0.995238 | Proven |
+| 7 | FUSION SURPLUS SOLUTIONS INC | 204/204 | 1.0000 | 0.995146 | Proven |
+| 8 | CHIME FINANCIAL INC | 580/582 | 0.9966 | 0.994863 | Proven |
+| 9 | PROCORE TECHNOLOGIES INC | 190/190 | 1.0000 | 0.994792 | Proven |
+| 10 | SOCIAL FINANCE INC | 182/182 | 1.0000 | 0.994565 | Proven |
 
 overlap between the two top-10 lists: 0/10
-median sample size in the list: raw 10 filings → adjusted 240 filings
+median sample size in the list: raw 10 filings → adjusted 276 filings
+note: near the top the gaps are small (thousandths). The ordering is by weight of evidence,
+      not a claim that #1 is meaningfully better than #4.
 ```
 
 The raw list is **alphabetical**. That is not a coincidence and it is the whole finding: with 1262
 employers tied at 1.0000, the "ranking" was row order wearing a percentage.
 
-## 4. The plausibility failure I found in my own component
+## 4. The deliberate break attempt — I made my own component produce a wrong answer, and it cost me the method
 
-The tier labels are authored thresholds. On the first pass DATABRICKS (1640/1648) came back:
+**Version 1 of this component was a different statistical method**: beta-binomial empirical Bayes,
+with the prior fitted to the data by maximum likelihood at run time (α=17.0132, β=0.3472 — an anchor
+at the 98.1% pooled approval rate). It passed a 7-invariant self-test and produced a clean top-10.
 
-```
-| DATABRICKS INC | 1640/1648 | 0.9951 | 0.994988 | Likely |
-```
-
-`Likely` — below employers with 240 filings — because 0.994988 fell **1.2 × 10⁻⁵** short of an
-authored 0.995 cut. A knife-edge constant was silently outranking 1648 records. I widened the bands
-(Proven: n ≥ 100 ∧ c ≥ 0.99) and re-ran:
-
-```
-| DATABRICKS INC | 1640/1648 | 0.9951 | 0.994988 | Proven |
-```
-
-The thresholds are still authored. They are labeled `your-input` in the attestation rather than
-presented as derived, because that is what they are.
-
-## 5. The deliberate break attempt — I made it produce a wrong answer
-
-**The attack:** shrinkage borrows strength from a population whose fitted rate is 98%. So feed it an
-employer whose record is *adverse* and thin, and see whether the prior manufactures a good score.
+**The attack:** shrinkage borrows strength from the population. So feed it employers whose records are
+*adverse* and thin, and see whether a 98% population rate manufactures a good score.
 
 It did.
 
@@ -137,33 +123,60 @@ BREAK ATTEMPT — does a BAD small-sample record get rescued by the 98% prior?
    25 employers rescued upward by >0.20
 ```
 
-**`FEEDMOB INC` has never had an H-1B approval on this record — 0 for 2 — and my component scored it
-0.879.** Read off a table, that is a strong sponsor. The arithmetic was right; the output was wrong in
-exactly the way fluency hides. This is the same class of failure as the raw-rate defect I built the
-component to fix, pointing the other direction: the first version over-trusted thin *good* records,
-and my fix made it over-trust thin *bad* ones.
+**`FEEDMOB INC` has never had an H-1B approval on this record — 0 for 2 — and version 1 scored it
+0.879.** Read off a table, that is a strong sponsor. The arithmetic was correct and the output was
+wrong in exactly the way fluency hides. It is the same class of failure as the raw-rate defect I built
+the component to fix, pointing the other way: the raw rate over-trusted thin *good* records, and my
+first fix over-trusted thin *bad* ones.
 
-**What I changed:** an adverse raw record (< 0.75) can no longer be promoted above `Thin`, and the
-borrowed portion is now printed as a caution naming how much of the score is not the employer's:
+**My first response was a patch, and the patch was not honest enough.** I added a rule that an adverse
+record could not be promoted above tier `Thin`, plus a `caution` string disclosing that the score was
+mostly borrowed from the prior. Both were true statements wrapped around a number that was still 0.879.
+A label that contradicts the number it labels is a decoration.
+
+**So the method was replaced, not patched.** The anchor moved from the fitted population rate to 0.5 —
+Laplace's rule of succession — because the population cannot vouch for an employer that has not earned
+it. Under the current rule the same employers read:
 
 ```
-$ node scripts/score/sponsorship-credibility.mjs --cautions
+$ node scripts/score/sponsorship-credibility.mjs --movers
 
-PRIOR-BORROWED SCORES (the component flagging its own weakest output)
-| Employer | approvals/total | raw rate | credibility | lift | tier |
-|---|---|---|---|---|---|
-| FEEDMOB INC | 0/2 | 0.0000 | 0.878762 | +0.879 | Thin |
-| UPLIFT LABS INC | 0/4 | 0.0000 | 0.796483 | +0.796 | Thin |
-| PRIME ARTIFICIAL INTELLIGENCE INC | 2/6 | 0.3333 | 0.813907 | +0.481 | Thin |
-| ANSA BIOTECHNOLOGIES INC | 2/4 | 0.5000 | 0.890114 | +0.390 | Thin |
+LARGEST DOWNWARD ADJUSTMENTS (thin records losing their unearned 100%)
+| Employer | approvals/total | raw rate | credibility | change |
+|---|---|---|---|---|
+| 1LIFE HEALTHCARE INC | 2/2 | 1.0000 | 0.750000 | -0.2500 |
+| 317 LABS INC | 2/2 | 1.0000 | 0.750000 | -0.2500 |
+| 98POINT6 TECHNOLOGIES INC | 2/2 | 1.0000 | 0.750000 | -0.2500 |
+
+LARGEST UPWARD ADJUSTMENTS (thin adverse records — uncertainty cuts both ways)
+| Employer | approvals/total | raw rate | credibility | change |
+|---|---|---|---|---|
+| FEEDMOB INC | 0/2 | 0.0000 | 0.250000 | +0.2500 |
+| GLIMPSE ENGINEERING INC | 0/2 | 0.0000 | 0.250000 | +0.2500 |
+| UPLIFT LABS INC | 0/4 | 0.0000 | 0.166667 | +0.1667 |
 ```
 
-Two regression invariants were added so this cannot come back silently. Self-test went 7/7 → 10/10.
+`FEEDMOB INC`: **0.879 → 0.250**. Two new invariants pin it there (`0/2 > 0/10 > 0/40` and
+`c(0/2) < 0.30`), so the failure cannot return silently.
 
-**The residual risk I did not fix:** `FEEDMOB INC`'s credibility is still 0.878762. I chose not to
-overwrite the posterior mean, because the number is arithmetically correct and quietly altering it
-would be its own dishonesty. A downstream consumer that reads `credibility` and ignores `tier` and
-`caution` will still be misled. That is written on the card as a live failure mode, not resolved.
+**The residual risk, stated plainly:** 0.250 is still not 0. Two filings cannot establish that an
+employer never sponsors, so the tool declines to say so — the same reason `2/2` is not 1.000.
+Uncertainty cuts both ways and `--movers` (gate G5) exists so a human sees both sides before acting.
+
+## 5. A second plausibility failure, found and fixed
+
+Version 1's tier labels were knife-edged: DATABRICKS (1640/1648) was labeled `Likely` because its
+score fell **1.2 × 10⁻⁵** short of an authored 0.995 cut, ranking it below 240-filing employers. Under
+the current rule it reads:
+
+```
+| DATABRICKS INC | 1640/1648 | 0.9951 | 0.994545 | Proven |
+| TURO INC       | 172/172   | 1.0000 | 0.994253 | Proven |
+```
+
+DATABRICKS ranks just above TURO — 1648 filings at 99.51% outweigh 172 at 100%, which is the intended
+behaviour. **But the gap is 0.0003.** The ordering is defensible; the precision is not. `--compare`
+now prints that near-top gaps are thousandths, so the table is not read as a claim that #1 beats #4.
 
 ## 6. The gates, shown stopping
 
@@ -185,13 +198,15 @@ A stopped run is a successful outcome. Both gates refuse rather than substitute.
 
 - **Whether the source counts are true.** The component reads the DOL/USCIS-mapped file as given. If a
   join dropped an employer's filings, the score is confidently wrong and nothing here would notice.
-  My component audits *sample size*, not *data quality* — and those are different doubts.
+  It audits **sample size**, not **data quality** — those are different doubts, and I did one of them.
 - **Whether an employer will sponsor *you*.** 610 past approvals at Confluent describe Confluent's
   past, not your case, your year, or your cap-exempt status.
+- **Which of 313 identical `2/2` employers is the better bet.** They score identically because the
+  record is identical. The tool refuses to invent an order; choosing among them is research a person
+  does — a recruiter email, a LinkedIn search — outside this system.
 - **What `Unknown` means for a specific company.** 28812 employers have no usable counts. Some do not
-  sponsor. Some sponsor and were not mapped. The component reports `Unknown` for all of them and
-  refuses to guess, which means a real sponsor can sit invisible in that pile. Finding out is a phone
-  call or an email to a recruiter — a human action, outside this system.
-- **Whether the fitted 98% prior is the right population for a given employer.** It is fitted across
-  all scored employers pooled — companies that already file. A biotech-only or seed-stage-only prior
-  would differ. Choosing the right comparison group is a judgment I hand back.
+  sponsor. Some sponsor and were not mapped. A real sponsor can sit invisible in that pile.
+- **Whether a `2/2` startup is worth the risk.** The component prices evidence, not upside. Ranking by
+  credibility systematically favours employers that file often — i.e. large ones — while this engine's
+  own Form D detector exists to surface early-stage companies. Weighing that trade-off is the human
+  call this hands back.

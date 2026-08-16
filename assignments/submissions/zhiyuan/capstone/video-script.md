@@ -27,61 +27,67 @@ No PII on screen (employer names only, from a public-derived file).
 
 ### ③ THE UNCUT LIVE RUN (~2 min) — do not cut inside this take
 
-> "So I built a scorer that takes sample size into account."
+> "So I built a scorer that takes sample size into account. The rule is one line: approvals plus one,
+> over total plus two. Every company starts with one win and one loss, then its own record gets added.
+> Two out of two becomes point seven five, not one. Seven hundred out of a thousand stays at point
+> seven — a big record barely moves."
 
 ```
 npm run score:sponsor-credibility
 ```
 
-> "It fits a prior to the actual data — every run, not hardcoded — and you can see it: alpha seventeen,
-> beta point three four. Fifteen fifty-seven companies scored, twenty-eight thousand with no usable
-> record. Those get 'Unknown', not zero — never zero. No record is not the same thing as a denial."
+> "Fifteen fifty-seven companies scored, twenty-eight thousand with no usable record. Those get
+> 'Unknown', not zero — never zero. No record is not the same thing as a denial."
 
 ```
 npm run score:sponsor-credibility:test
 ```
 
-> "Ten invariants. A small perfect record has to rank below a big one. A bad record has to stay bad.
-> A huge sample has to converge back to its own rate. All ten pass."
+> "Ten invariants. A thin perfect record has to lose to a deep one. A thin perfect record still has to
+> beat a mediocre big one. And denials have to count too — zero out of two scores higher than zero out
+> of forty, because forty is real evidence and two isn't. All ten pass."
 
 ```
 node scripts/score/sponsorship-credibility.mjs --compare
 ```
 
 > "And here's the payoff. Old list on top — alphabetical, median ten filings. New list underneath —
-> Confluent with six hundred and ten, Datadog with three hundred and forty, median two hundred and
-> forty filings. Overlap between the two lists: zero out of ten. The entire list a student would act on
-> is different."
+> Confluent with six hundred and ten, Juniper with twelve hundred, Datadog with three hundred and
+> forty. Median two hundred and seventy-six filings. Overlap between the two lists: zero out of ten.
+> The entire list a student would act on is different."
 
 ```
-node scripts/score/sponsorship-credibility.mjs --cautions
+node scripts/score/sponsorship-credibility.mjs --movers
 ```
 
-> "And this last one is the component reporting its own weakest output — I'll explain why in a second."
+> "And this shows the biggest adjustments both ways. I'll explain the second table in a second."
 
 *(If anything errors on camera, leave it in and narrate the fix — that's the most honest footage.)*
 
-### ④ One thing I learned (~50s)
+### ④ One thing I learned (~60s)
 
-> "Here's what I actually learned, and it's the part I didn't expect.
+> "Here's what I actually learned, and it cost me my first version.
 >
-> I built this thing to stop the tool from over-trusting small samples. Then I tried to break it — I fed
-> it companies with *bad* records instead of good ones. And it broke.
+> Version one used a fancier method — it fit a prior to the data and shrank every company toward the
+> population average, which is ninety-eight percent. Passed all its tests. Then I tried to break it: I
+> fed it companies with *bad* records instead of good ones.
 >
-> FeedMob has zero approvals out of two filings. Zero. My scorer gave it point eight eight. Because
-> shrinking toward a ninety-eight percent population average doesn't just pull the good small samples
-> down — it pulls the bad ones *up*. I'd fixed over-trusting thin good records by building something
-> that over-trusted thin bad ones. Twenty-five companies got lifted like that.
+> FeedMob has zero approvals out of two filings. Zero. My scorer gave it point eight eight — because
+> shrinking toward a ninety-eight percent average doesn't just pull good small samples down, it pulls
+> bad ones *up*. Twenty-five companies got rescued like that.
 >
-> So now a bad record can't be promoted no matter how the math shrinks it, and the tool prints how much
-> of each score is borrowed from the prior instead of earned. But I left the number itself at point
-> eight eight — because it's arithmetically correct, and quietly changing it to look better would be
-> its own kind of lying."
+> My first fix was a label. I tagged the score 'mostly borrowed from the prior' and refused to promote
+> it. Both true. But it was a true sentence wrapped around a number that still said point eight eight —
+> and a label that contradicts its own number is decoration, not a fix.
+>
+> So I threw out the method, not the symptom. The anchor moved from ninety-eight percent to fifty
+> percent. FeedMob is now point two five. And it's not zero — because two filings can't prove a company
+> never sponsors, the same reason two filings can't prove it always does."
 
 ### ⑤ One honest limitation (~30s)
 
 > "And the limitation I can't get around: this checks *sample size*. It does not check whether the data
-> is true. If the upstream join dropped a company's filings, I compute a beautiful score off a wrong
+> is true. If the upstream join dropped a company's filings, I compute a clean score off a wrong
 > number, all ten tests still pass, and nothing anywhere flags it.
 >
 > Auditing sample size and auditing data quality are two different jobs. I did one of them. That's the
@@ -90,8 +96,8 @@ node scripts/score/sponsorship-credibility.mjs --cautions
 ### ⑥ Close (~15s)
 
 > "It runs on the real file, it breaks the twelve-hundred-way tie in the direction the record supports,
-> it flags its own weakest output, and it never scores a missing record as a zero. That's the
-> contribution."
+> it leaves companies with identical records tied instead of faking an order, and it never scores a
+> missing record as a zero. That's the contribution."
 
 ---
 **Total ≈ 4–4.5 min.** Graded core is the uncut ③. If something goes wrong on camera, keep it.
